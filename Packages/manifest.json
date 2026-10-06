@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
-    "com.hyogafukuno.nametag": "https://github.com/HyogaFukuno/NameTag.git?path=Packages/com.hyogafukuno.nametag#v1.1.2",
+    "com.hyogafukuno.nametag": "https://github.com/HyogaFukuno/NameTag.git?path=Packages/com.hyogafukuno.nametag#v1.1.3",
     "com.unity.ai.navigation": "2.0.14",
     "com.unity.collab-proxy": "2.13.6",
     "com.unity.ide.rider": "3.0.40",
