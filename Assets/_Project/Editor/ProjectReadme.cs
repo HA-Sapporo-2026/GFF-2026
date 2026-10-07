@@ -10,7 +10,7 @@ namespace GFF2026.EditorTools
     /// </summary>
     public class ProjectReadme : ScriptableObject
     {
-        private const string DefaultAssetPath = "Assets/_Project/Editor/README.asset";
+        const string DefaultAssetPath = "Assets/_Project/Editor/README.asset";
 
         /// <summary>リポジトリ直下の README.md の絶対パス</summary>
         public static string MarkdownPath =>
@@ -23,7 +23,7 @@ namespace GFF2026.EditorTools
             Selection.activeObject = readme;
         }
 
-        private static ProjectReadme FindOrCreate()
+        static ProjectReadme FindOrCreate()
         {
             string[] guids = AssetDatabase.FindAssets("t:" + nameof(ProjectReadme));
             if (guids.Length > 0)

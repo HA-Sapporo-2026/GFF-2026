@@ -9,7 +9,7 @@ namespace GFF2026.EditorTools
     [InitializeOnLoad]
     internal static class ProjectReadmeStartup
     {
-        private const string ShownKey = "GFF2026.ProjectReadme.ShownThisSession";
+        const string ShownKey = "GFF2026.ProjectReadme.ShownThisSession";
 
         static ProjectReadmeStartup()
         {
@@ -19,7 +19,7 @@ namespace GFF2026.EditorTools
             EditorApplication.delayCall += ShowOnStartup;
         }
 
-        private static void ShowOnStartup()
+        static void ShowOnStartup()
         {
             if (SessionState.GetBool(ShownKey, false)) return;
             SessionState.SetBool(ShownKey, true);

@@ -1,7 +1,7 @@
 # GFF-2026
 
 1年・2年合同の制作プロジェクトです。
-このリポジトリに入るのは **PGのみ** です（PLは任意参加でチーム内のPGが教える／CGは共有ストレージ経由で納品）。
+このリポジトリに入るのは **PGのみ** です（PLは任意参加でPGが教える／CGは共有ストレージ経由で納品）。
 
 ---
 
@@ -40,7 +40,8 @@ GFF-2026/                     ← リポジトリ直下に Assets/ と ProjectSe
 │   └── InputSystem_Actions.inputactions
 ├── Packages/
 └── ProjectSettings/
-    └── NameTagSettings.asset ← 名前タグの登録と割り当て（リーダーのみ変更）
+    ├── NameTagSettings.asset ← 名前タグに使う名前の登録（福野先生のみ変更）
+    └── NameTags/             ← 名前タグのアサイン（アセットごとに <GUID>.txt）
 ```
 
 ### 運用ルール：機能で分けて、機能に担当者を付ける
@@ -68,7 +69,7 @@ _Project/InGame/
 │   ├── Enemy/
 │   ├── Stage/
 │   ├── UI/
-│   └── Common/      ← 共通処理。2年リーダー担当、触るときは宣言
+│   └── Common/      ← 共通処理。触るときは宣言
 └── Prefabs/
     ├── Player/
     ├── Enemy/
@@ -88,21 +89,30 @@ _Project/InGame/
 | `_Project/InGame/Scripts/Enemy` | |
 | `_Project/InGame/Scripts/Stage` | |
 | `_Project/InGame/Scripts/UI` | |
-| `_Project/InGame/Scripts/Common` | （2年リーダー） |
-| `_Project/Settings` | （2年リーダー） |
+| `_Project/InGame/Scripts/Common` | |
+| `_Project/Settings` | |
 
 ### 名前タグ（NameTag）
 
 Projectウィンドウのフォルダ・ファイルのアイコン右下に、担当者の名前を表示するエディタ拡張です。
 
-- フォルダを選び、インスペクタ下部の **Name Tag → Assignee** から担当者を選ぶ
+- フォルダやファイルを選び、インスペクタ下部の **Name Tag → Assignee** から担当者を選ぶ
 - フォルダに付けたタグは中のファイルにも引き継がれて表示される（グレーの斜体）。担当が違うファイルだけ個別に付ける
-- 割り当てはGUIDで管理されるので、砂場から機能フォルダへ移動してもタグは外れない
+- **名前タグを付けるのは `_Project` の中だけ。** `_Sandbox/<自分の名前>/` はフォルダ名が持ち主を表すので、名前タグは付けない
+- 砂場から機能フォルダへ移したファイルには、移した先のフォルダのタグがグレーで表示される。担当が違うときだけファイルに個別に付ける
+- アサインは `ProjectSettings/NameTags/<GUID>.txt` に1件ずつ保存される。別々のファイルへのアサインはコンフリクトしない
+
+**運用ルール**
+
+1. **`_Project` の中で自分が担当するファイル・フォルダには、自分でタグをアサインする**
+2. **一度アサインしたタグは外さない。** タグは「今作業中か」ではなく「このファイルの担当者」を表す
+3. 担当が変わったときだけ、新しい担当者に付け替える
+4. 名前タグの追加・削除（Project Settings → NameTag Settings の Names）は、福野先生だけが行う
 
 > [!IMPORTANT]
-> **名前の登録とタグの付け替えは、2年リーダーだけが行います。**
-> 登録と割り当てはすべて `ProjectSettings/NameTagSettings.asset` 1ファイルに保存されるため、複数人が別ブランチで付け替えるとコンフリクトします。
-> 担当が変わったらリーダーに頼んでください。
+> 名前タグの一覧は `ProjectSettings/NameTagSettings.asset` 1ファイルに保存されるため、複数人が変更するとコンフリクトします。
+> 名前タグの追加・削除が必要なときは、福野先生に頼んでください。
+> `ProjectSettings/NameTags/` の `.txt` も、アサインと一緒に必ずコミットしてください。
 
 ---
 
@@ -135,6 +145,65 @@ Projectウィンドウのフォルダ・ファイルのアイコン右下に、�
 | シーン | 配置担当 |
 |---|---|
 | `_Project/InGame/InGame.unity` | |
+
+---
+
+## コーディングルール
+
+### 命名規則
+
+| 対象 | 書き方 | 例 |
+|---|---|---|
+| クラス | PascalCase | `PlayerController` |
+| 関数（メソッド） | PascalCase | `TakeDamage()` |
+| プロパティ | PascalCase | `IsGrounded` |
+| 定数（`const`） | PascalCase | `MaxHp` |
+| 列挙型（`enum`）とその値 | PascalCase | `PlayerState.Idle` |
+| メンバ変数 | camelCase | `moveSpeed` |
+| staticなメンバ変数 | `s_` + camelCase | `s_instance` |
+| ローカル変数・引数 | camelCase | `damage` |
+
+- **アンダースコアなどの接頭辞・接尾辞は付けない**（`_moveSpeed`、`m_moveSpeed`、`moveSpeed_` はすべて不可）
+- 例外は staticなメンバ変数の `s_` だけ
+- `[SerializeField]` を付けた変数もメンバ変数なので camelCase
+
+### アクセス修飾子
+
+| 対象 | ルール | 例 |
+|---|---|---|
+| 一番外側の型（クラス・構造体・列挙型・インターフェース） | **必ず書く** | `public class PlayerController` |
+| クラスの中のもの（変数・プロパティ・関数・クラスの中で定義したクラスや `enum`） | **`private` は書かない**（省略すると private になる） | `float moveSpeed;` / `void Awake()` / `enum State` |
+| クラスの中のものを `private` 以外にするとき | 書く | `public void TakeDamage()` |
+
+- 一番外側の型は省略すると `internal`、クラスの中のものは省略すると `private` になり、既定が違う。一番外側は迷わないように必ず書く
+- プロパティの `{ get; private set; }` の `private` は、省略できないので書く
+
+### 書き方の例
+
+```csharp
+public class PlayerController : MonoBehaviour
+{
+    const float MaxSpeed = 10f;
+
+    static int s_playerCount;
+
+    [SerializeField] float moveSpeed = 5f;
+    Rigidbody rb;
+
+    public bool IsGrounded { get; private set; }
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        s_playerCount++;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        // ...
+    }
+}
+```
 
 ---
 
@@ -171,10 +240,12 @@ main ─────●─────────●─────────
 ### PRレビューで見ること
 
 - [ ] `ProjectSettings/ProjectVersion.txt` に差分がない
-- [ ] `ProjectSettings/NameTagSettings.asset` の差分はリーダーによるものか
+- [ ] `ProjectSettings/NameTagSettings.asset` の差分は福野先生によるものか
+- [ ] `_Project` に新しく作ったファイル・フォルダに名前タグがアサインされている（`ProjectSettings/NameTags/` の `.txt` がコミットされている）
 - [ ] 本番シーン（`_Project` 内の `.unity`）の変更は配置担当によるものか
 - [ ] 本番（`_Project`）が `_Sandbox` のものを参照していない
 - [ ] 担当外のフォルダを変更していれば、その担当者がレビューしている
+- [ ] コーディングルール（命名規則・アクセス修飾子）に沿っている
 - [ ] `.meta` ファイルが一緒にコミットされている
 - [ ] 動く状態になっている
 
@@ -225,8 +296,9 @@ CG学生はGitを使いません。共有ストレージ経由で受け渡しま
 | Prefabが壊れた | `.meta` を消した／解決を誤った | 前のコミットから戻す |
 | マージ後に動かない | 片方の変更だけ採用した | コンフリクト箇所を再確認 |
 | Unityのバージョンが上がった | 6.3 以外で開いた | `ProjectVersion.txt` を含む変更を破棄し、6.3で開き直す |
-| `NameTagSettings.asset` がコンフリクト | 複数人が名前タグを付け替えた | どちらかを採用し、リーダーが付け直す |
-| 名前タグが表示されない | パッケージ未導入／名前が未登録 | Package Managerで導入を確認し、NameTag Settingsに名前があるか確認 |
+| `NameTagSettings.asset` がコンフリクト | 複数人が名前タグの一覧を変更した | 自分の変更を破棄し、福野先生に追加・削除を頼む |
+| 他の人の画面で名前タグが表示されない | `ProjectSettings/NameTags/` の `.txt` をコミットしていない | `.txt` をコミットしてPRに含める |
+| 名前タグが表示されない | 名前が未登録 | NameTag Settingsに名前があるか確認し、なければ福野先生に追加を頼む |
 | 砂場のものが本番で使われている | `_Sandbox` から参照した | 機能フォルダに移してから参照し直す |
 
 **詰まったら30分以内に聞くこと。** 黙って抱え込むと半日溶けます。
