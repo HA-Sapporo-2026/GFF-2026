@@ -48,7 +48,10 @@ namespace GFF2026.EditorTools
         DateTime loadedWriteTime;
         string error;
 
+        // Mac、Windows の順に、標準で入っている等幅フォント
+        static readonly string[] s_monoFontCandidates = { "Menlo", "Consolas", "MS Gothic", "Courier New" };
         static Font s_monoFont;
+        static bool s_monoFontResolved;
         GUIStyle h1, h2, h3, body, cell, code, quote;
 
         string CodeColor => EditorGUIUtility.isProSkin ? "#E5A06A" : "#A3410E";
@@ -542,10 +545,10 @@ namespace GFF2026.EditorTools
             quote = new GUIStyle(body);
             cell = new GUIStyle(body) { fontSize = 12, padding = new RectOffset(4, 4, 3, 3) };
 
-            if (s_monoFont == null)
+            if (!s_monoFontResolved)
             {
-                s_monoFont = Font.CreateDynamicFontFromOSFont(
-                    new[] { "Menlo", "Consolas", "Osaka-Mono", "MS Gothic", "Courier New" }, 12);
+                s_monoFont = CreateMonoFont();
+                s_monoFontResolved = true;
             }
             code = new GUIStyle(EditorStyles.label)
             {
@@ -555,6 +558,24 @@ namespace GFF2026.EditorTools
                 wordWrap = false,
                 padding = new RectOffset(6, 6, 4, 4)
             };
+        }
+
+        /// <summary>
+        /// コードブロック用の等幅フォントを作る。
+        /// OS にないフォント名を渡すと警告が出るので、インストールされているものだけを候補から選ぶ。
+        /// どれもなければ null を返し、エディタ標準のフォントで描く
+        /// </summary>
+        static Font CreateMonoFont()
+        {
+            var installed = new HashSet<string>(Font.GetOSInstalledFontNames());
+            foreach (var name in s_monoFontCandidates)
+            {
+                if (installed.Contains(name))
+                {
+                    return Font.CreateDynamicFontFromOSFont(name, 12);
+                }
+            }
+            return null;
         }
     }
 }
