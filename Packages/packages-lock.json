@@ -8,11 +8,11 @@
       "hash": "acc1c7bc9ea34c33b830e40316fca52553878d29"
     },
     "com.hyogafukuno.nametag": {
-      "version": "https://github.com/HyogaFukuno/NameTag.git?path=Packages/com.hyogafukuno.nametag#v1.2.0",
+      "version": "https://github.com/HyogaFukuno/NameTag.git?path=Packages/com.hyogafukuno.nametag#v1.2.1",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "02eec9b9fb6ab48f06c8f9bd15d0f8161cc65719"
+      "hash": "1baa7d0881b9246e576aa7fb85c759c0e2edf42e"
     },
     "com.unity.ai.navigation": {
       "version": "2.0.14",
@@ -78,7 +78,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.20.0",
+      "version": "1.20.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
