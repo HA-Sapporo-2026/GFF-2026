@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         // 移動入力の無効化
         moveAction.Disable();
