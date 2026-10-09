@@ -36,7 +36,7 @@ public class PlayerMove : MonoBehaviour
             transform.forward * input.y;
 
         Rigidbody.MovePosition(
-            Rigidbody.position + move * moveSpeed * Time.deltaTime
+            Rigidbody.position + move * moveSpeed
         );
     }
 }
