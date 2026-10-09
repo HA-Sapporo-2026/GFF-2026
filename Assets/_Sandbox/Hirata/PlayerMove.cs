@@ -1,42 +1,45 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+namespace Sandbox.Hirata
 {
-    [SerializeField] InputActionReference moveAction;
-    [SerializeField] float moveSpeed = 5f;
-    Rigidbody Rigidbody;
-
-    void OnEnable()
+    public class PlayerMove : MonoBehaviour
     {
-       moveAction.action.Enable(); 
-    }
+        [SerializeField] InputActionReference moveAction;
+        [SerializeField] float moveSpeed = 5f;
+        Rigidbody Rigidbody;
 
-    void OnDisable()
-    {
-        moveAction.action.Disable();
-    }
+        void OnEnable()
+        {
+            moveAction.action.Enable(); 
+        }
 
-    void Start()
-    {
-        Rigidbody = GetComponent<Rigidbody>();
-    }
+        void OnDisable()
+        {
+            moveAction.action.Disable();
+        }
+
+        void Start()
+        {
+            Rigidbody = GetComponent<Rigidbody>();
+        }
 
     
-    void FixedUpdate()
-    {
-        Move();
-    }
-    void Move()
-    {
-        Vector2 input = moveAction.action.ReadValue<Vector2>();
+        void FixedUpdate()
+        {
+            Move();
+        }
+        void Move()
+        {
+            Vector2 input = moveAction.action.ReadValue<Vector2>();
 
-        Vector3 move =
-            transform.right * input.x +
-            transform.forward * input.y;
+            Vector3 move =
+                transform.right * input.x +
+                transform.forward * input.y;
 
-        Rigidbody.MovePosition(
-            Rigidbody.position + move * moveSpeed
-        );
+            Rigidbody.MovePosition(
+                Rigidbody.position + move * moveSpeed
+            );
+        }
     }
 }
