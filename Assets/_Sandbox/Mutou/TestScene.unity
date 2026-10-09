@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   moveAction: {fileID: 8914269215444504292, guid: 5d1f5c7321c479949bec9f62cdc62e0c, type: 3}
-  moveSpeed: 2
+  moveSpeed: 0.1
   rigidBody: {fileID: 1986014654}
 --- !u!65 &1986014656
 BoxCollider:

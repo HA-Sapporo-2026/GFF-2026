@@ -38,6 +38,6 @@ public class PlayerMove : MonoBehaviour
 
         rigidBody.MovePosition(
             rigidBody.position +
-            move.normalized * moveSpeed * Time.fixedDeltaTime);
+            move.normalized * moveSpeed);
     }
 }
