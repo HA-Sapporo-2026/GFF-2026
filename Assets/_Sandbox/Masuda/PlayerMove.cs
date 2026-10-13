@@ -10,12 +10,7 @@ public class PlayerMove : MonoBehaviour
     public InputAction moveAction;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
+    
     private void OnEnable()
     {
         moveAction.Enable();
@@ -32,9 +27,5 @@ public class PlayerMove : MonoBehaviour
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
         rb.linearVelocity = new Vector3(moveInput.x, 0.0f, moveInput.y);
-
-
-
-
     }
 }
