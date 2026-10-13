@@ -422,7 +422,47 @@ MonoBehaviour:
     m_Id: 1467f954-dbdf-45d1-a12c-e997b16fa3a8
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: WASD
+      m_Id: 51771cc7-0e52-4ab5-82bc-76eaac4326c4
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 06c13e2f-7ebd-4823-b31d-373142eca7d7
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: b661063a-677d-4207-a2ea-e727a0a17a1f
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 5cb961a3-fa7b-44ab-a005-3b9bdd90ceac
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 2c3a85ca-fb08-40ac-b140-084800448299
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Input
+      m_Flags: 8
     m_Flags: 0
     m_Priority: 0
 --- !u!65 &1533494821

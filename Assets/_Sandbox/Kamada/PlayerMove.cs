@@ -3,16 +3,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
-    public InputAction playerInput;
+    public InputAction moveAction;
 
     private void OnEnable()
     {
-        playerInput.Enable();
+        moveAction.Enable();
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
+        moveAction.Disable();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,11 +24,9 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 position = new Vector2(transform.position.x,transform.position.z);
+        Vector2 input = moveAction.ReadValue<Vector2>();
 
-        position += playerInput.ReadValue<Vector2>() * Time.deltaTime;
-
-        transform.position = new Vector3(position.x,transform.position.y,position.y);
-
+        transform.position += 
+            new Vector3(input.x * Time.deltaTime,0.0f, input.y * Time.deltaTime);
     }
 }
