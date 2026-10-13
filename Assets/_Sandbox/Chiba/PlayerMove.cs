@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     public InputAction moveAction;
-    public Rigidbody rb;
+    public Rigidbody rigidbody;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +23,6 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        rb.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) /** Time.deltaTime*/;
+        rigidbody.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) /** Time.deltaTime*/;
     }
 }
