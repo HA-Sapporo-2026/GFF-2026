@@ -1,32 +1,35 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+namespace Sandbox.Kamada
 {
-    public InputAction moveAction;
-
-    private void OnEnable()
+    public class PlayerMove : MonoBehaviour
     {
-        moveAction.Enable();
-    }
+        public InputAction moveAction;
 
-    private void OnDisable()
-    {
-        moveAction.Disable();
-    }
+        private void OnEnable()
+        {
+            moveAction.Enable();
+        }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+        private void OnDisable()
+        {
+            moveAction.Disable();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector2 input = moveAction.ReadValue<Vector2>();
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
 
-        transform.position += 
-            new Vector3(input.x * Time.deltaTime,0.0f, input.y * Time.deltaTime);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Vector2 input = moveAction.ReadValue<Vector2>();
+
+            transform.position +=
+                new Vector3(input.x * Time.deltaTime, 0.0f, input.y * Time.deltaTime);
+        }
     }
 }
