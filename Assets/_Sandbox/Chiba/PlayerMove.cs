@@ -1,28 +1,36 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+namespace Sandbox.Chiba
 {
-    public InputAction moveAction;
-    public Rigidbody rigidbody;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerMove : MonoBehaviour
     {
-        
-    }
-    void OnEnable()
-    {
-        moveAction.Enable();
-    }
-    void OnDisable()
-    {
-        moveAction.Disable();
+        public InputAction moveAction;
+
+        public Rigidbody rigidbody;
+
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+
+        }
+
+        void OnEnable()
+        {
+            moveAction.Enable();
+        }
+
+        void OnDisable()
+        {
+            moveAction.Disable();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Vector2 moveInput = moveAction.ReadValue<Vector2>();
+            rigidbody.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) /** Time.deltaTime*/;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        rigidbody.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) /** Time.deltaTime*/;
-    }
 }
