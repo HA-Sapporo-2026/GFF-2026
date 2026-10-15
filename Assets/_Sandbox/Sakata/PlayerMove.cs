@@ -1,25 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMove : MonoBehaviour
+namespace Sandbox.Sakata
 {
-    public Rigidbody rigidbody;
-    public InputAction moveAction;
-
-    void OnEnable()
+    public class PlayerMove : MonoBehaviour
     {
-        moveAction.Enable();
-    }
+        [SerializeField] Rigidbody rigidbody;
+        [SerializeField] InputAction moveAction;
 
-    void OnDisable()
-    {
-        moveAction.Disable();
-    }
+        void OnEnable()
+        {
+            moveAction.Enable();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        rigidbody.AddForce(new Vector3(moveInput.x, 0, moveInput.y) * 10f);
+        void OnDisable()
+        {
+            moveAction.Disable();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Vector2 moveInput = moveAction.ReadValue<Vector2>();
+
+            // sqrMagnitudeでベクトルの長さを見ることができる。0.01fなどの適当な閾値とみて0以上なら入力があると判断できる
+            if (moveInput.sqrMagnitude > 0.01f)
+            {
+                rigidbody.linearVelocity = new Vector3(moveInput.x, rigidbody.linearVelocity.y, moveInput.y);
+            }
+        }
     }
 }
