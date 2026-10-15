@@ -5,7 +5,7 @@ namespace Sandbox.Kamada
 {
     public class PlayerMove : MonoBehaviour
     {
-        public InputAction moveAction;
+        [SerializeField] InputAction moveAction;
 
         private void OnEnable()
         {
