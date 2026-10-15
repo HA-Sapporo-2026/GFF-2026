@@ -7,13 +7,13 @@ namespace Sandbox.Gunji
     public class PlayerController : MonoBehaviour
     {
         // 移動速度
-        public float moveSpeed = 2.0f;
+        [SerializeField] float moveSpeed = 2.0f;
 
         // 物理移動用のコンポーネント
-        public Rigidbody rigidbody;
+        [SerializeField] Rigidbody rigidbody;
 
         // 移動用の入力設定
-        public InputAction moveAction;
+        [SerializeField] InputAction moveAction;
 
         void OnEnable()
         {
@@ -35,14 +35,14 @@ namespace Sandbox.Gunji
 
             Vector3 moveInput = new Vector3
             (
-                input.x,
-                0.0f,
-                input.y
+                input.x * moveSpeed,
+                rigidbody.linearVelocity.y,
+                input.y * moveSpeed
             );
 
             // Rigidbodyの移動方向と速度を扱う変数に、
             // 移動入力の値（方向）に速度をかけた値を渡す
-            rigidbody.linearVelocity = moveInput * moveSpeed;
+            rigidbody.linearVelocity = moveInput ;
         }
     }
 
