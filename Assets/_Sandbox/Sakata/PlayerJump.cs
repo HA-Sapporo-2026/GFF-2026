@@ -8,8 +8,8 @@ namespace Sandbox.Sakata
     public class PlayerJump : MonoBehaviour
     {
         [SerializeField] Rigidbody rigidbody;
-        public Collider collider;
-        public InputAction jumpAction;
+        [SerializeField] Collider collider;
+        [SerializeField] InputAction jumpAction;
 
         bool switchFloor;
         // Start is called once before the first execution of Update after the MonoBehaviour is created

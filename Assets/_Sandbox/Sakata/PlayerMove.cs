@@ -6,7 +6,7 @@ namespace Sandbox.Sakata
     public class PlayerMove : MonoBehaviour
     {
         [SerializeField] Rigidbody rigidbody;
-        public InputAction moveAction;
+        [SerializeField] InputAction moveAction;
 
         void OnEnable()
         {
