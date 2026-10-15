@@ -1,41 +1,42 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using static UnityEditor.Progress;
 
-public class PlayerJump : MonoBehaviour
+
+namespace Sandbox.Sakata
 {
-    public Rigidbody rigidbody;
-    public Collider collider;
-    public InputAction jumpAction;
-    GameObject floorObject;
-
-    bool switchFloor;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void OnEnable()
+    public class PlayerJump : MonoBehaviour
     {
-        jumpAction.Enable();
-    }
+        [SerializeField] Rigidbody rigidbody;
+        public Collider collider;
+        public InputAction jumpAction;
 
-    void OnDisable()
-    {
-        jumpAction.Disable();
-    }
+        bool switchFloor;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void OnEnable()
+        {
+            jumpAction.Enable();
+        }
 
-    void Update()
-    {
-        if (jumpAction.WasPressedThisFrame() && !switchFloor)
-            rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 5.0f, rigidbody.linearVelocity.y);
-    }
+        void OnDisable()
+        {
+            jumpAction.Disable();
+        }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        switchFloor = false;
-    }
+        void Update()
+        {
+            if (jumpAction.WasPressedThisFrame() && !switchFloor)
+                rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 5.0f, rigidbody.linearVelocity.y);
+        }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        switchFloor = true;
+        private void OnCollisionStay(Collision collision)
+        {
+            switchFloor = false;
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            switchFloor = true;
+        }
     }
 }
