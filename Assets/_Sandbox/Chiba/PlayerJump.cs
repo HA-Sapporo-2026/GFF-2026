@@ -22,7 +22,7 @@ namespace Sandbox.Chiba
         }
         private void OnCollisionStay(Collision collision)
         {
-            if (jumpAction./*IsPressed()*/WasPressedThisFrame() &&  isTouching() jumpTrigger.)
+            if (jumpAction./*IsPressed()*/WasPressedThisFrame())
             {
                 rigidbody.linearVelocity += new Vector3(0, jumpHeight - rigidbody.linearVelocity.y, 0);
             }
