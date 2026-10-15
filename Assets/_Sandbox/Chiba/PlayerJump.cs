@@ -9,7 +9,14 @@ namespace Sandbox.Chiba
         [SerializeField]Rigidbody rigidbody;
         // ジャンプ力
         [SerializeField]float jumpHeight = 5;
+        PlayerDash dash;
+        PlayerMove move;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
+        private void Start()
+        {
+            dash = this.GetComponent<PlayerDash>();
+            move = this.GetComponent<PlayerMove>();
+        }
         private void OnEnable()
         {
             jumpAction.Enable();
@@ -24,6 +31,8 @@ namespace Sandbox.Chiba
             {
                 Vector3 velocity = rigidbody.linearVelocity;
                 velocity.y = jumpHeight;
+                if (move.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                    velocity.y = jumpHeight + (Mathf.Abs(velocity.x) + Mathf.Abs(velocity.z)) * 0.2f;
                 rigidbody.linearVelocity = velocity;
             }
         }
