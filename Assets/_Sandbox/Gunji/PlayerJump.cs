@@ -7,9 +7,9 @@ namespace Sandbox.Gunji
     {
         [SerializeField] float jumpPower = 5.0f; // privateはデフォルト扱いなので記述しなくてOK
 
-        public Rigidbody rigidbody;
+        [SerializeField] Rigidbody rigidbody;
 
-        public InputAction jumpAction;
+        [SerializeField] InputAction jumpAction;
 
         bool isGrounded;
 
