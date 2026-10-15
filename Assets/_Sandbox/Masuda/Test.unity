@@ -484,7 +484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3269d616032e03f4bbcab93596820169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  rb: {fileID: 1982570024}
+  rigidbody: {fileID: 1982570024}
+  moveSpeed: 5
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -667,7 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e764a5c6c138ac247802a8516473b46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sandbox.Masuda.PlayerJump
-  rb: {fileID: 1982570024}
+  rigidbody: {fileID: 1982570024}
   jumpPower: 5
   jumpAction:
     m_Name: Jump

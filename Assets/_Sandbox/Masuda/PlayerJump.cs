@@ -5,12 +5,12 @@ namespace Sandbox.Masuda
 {
     public class PlayerJump : MonoBehaviour
     {
-        public Rigidbody rb;
+        [SerializeField] Rigidbody rigidbody;
 
         [SerializeField] float jumpPower = 5.0f;
-        public InputAction jumpAction;
+        [SerializeField] InputAction jumpAction;
 
-        bool isJumping = false;
+        bool isGround = true;
 
         private void OnEnable()
         {
@@ -25,17 +25,20 @@ namespace Sandbox.Masuda
         // Update is called once per frame
         void Update()
         {
-            if(jumpAction.WasPressedThisFrame() && !isJumping)
+            if(jumpAction.WasPressedThisFrame() && isGround)
             {
-                rb.linearVelocity += new Vector3(0.0f, jumpPower, 0.0f);
-
-                isJumping = true;
+                rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, jumpPower, rigidbody.linearVelocity.z);
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            isJumping = false;
+            isGround = true;
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            isGround = false;
         }
     }
 }
