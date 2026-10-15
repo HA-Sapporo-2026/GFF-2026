@@ -1,0 +1,104 @@
+# GFF-2026 コーディングルール（命名規則）
+# Visual Studio / VS Code / Rider で読み込まれる。違反はエディタ上で警告（IDE1006）として表示される。
+# Unity のコンパイルには影響しない。ルールの説明は README.md の「コーディングルール」を参照。
+
+root = true
+
+[*.cs]
+
+# ---------------------------------------------------------------
+# 対象の定義
+# ---------------------------------------------------------------
+
+# インターフェース
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+
+# 型パラメーター（SingletonMonoBehaviour<T> の T など）
+dotnet_naming_symbols.type_parameters.applicable_kinds = type_parameter
+
+# クラス・構造体・列挙型・デリゲート
+dotnet_naming_symbols.types.applicable_kinds = class, struct, enum, delegate
+dotnet_naming_symbols.types.applicable_accessibilities = *
+
+# 関数・プロパティ・イベント
+# ※列挙型の値（PlayerState.Idle の Idle など）は .editorconfig の命名チェックの対象外。レビューで確認する
+dotnet_naming_symbols.members.applicable_kinds = method, local_function, property, event
+dotnet_naming_symbols.members.applicable_accessibilities = *
+
+# 定数（const）
+dotnet_naming_symbols.constant_fields.applicable_kinds = field
+dotnet_naming_symbols.constant_fields.applicable_accessibilities = *
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
+dotnet_naming_symbols.constant_locals.applicable_kinds = local
+dotnet_naming_symbols.constant_locals.required_modifiers = const
+
+# static なメンバ変数（static readonly も含む）
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = *
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+# メンバ変数（[SerializeField] を付けたものも含む）
+dotnet_naming_symbols.instance_fields.applicable_kinds = field
+dotnet_naming_symbols.instance_fields.applicable_accessibilities = *
+
+# ローカル変数・引数
+dotnet_naming_symbols.locals_and_parameters.applicable_kinds = local, parameter
+
+# ---------------------------------------------------------------
+# 書き方の定義
+# ---------------------------------------------------------------
+
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+dotnet_naming_style.camel_case.capitalization = camel_case
+
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+
+dotnet_naming_style.type_parameter_style.capitalization = pascal_case
+dotnet_naming_style.type_parameter_style.required_prefix = T
+
+dotnet_naming_style.static_field_style.capitalization = camel_case
+dotnet_naming_style.static_field_style.required_prefix = s_
+
+# ---------------------------------------------------------------
+# ルール（より細かい条件のルールが優先される）
+# ---------------------------------------------------------------
+
+dotnet_naming_rule.interfaces_rule.symbols = interfaces
+dotnet_naming_rule.interfaces_rule.style = interface_style
+dotnet_naming_rule.interfaces_rule.severity = warning
+
+dotnet_naming_rule.type_parameters_rule.symbols = type_parameters
+dotnet_naming_rule.type_parameters_rule.style = type_parameter_style
+dotnet_naming_rule.type_parameters_rule.severity = warning
+
+dotnet_naming_rule.types_rule.symbols = types
+dotnet_naming_rule.types_rule.style = pascal_case
+dotnet_naming_rule.types_rule.severity = warning
+
+dotnet_naming_rule.members_rule.symbols = members
+dotnet_naming_rule.members_rule.style = pascal_case
+dotnet_naming_rule.members_rule.severity = warning
+
+dotnet_naming_rule.constant_fields_rule.symbols = constant_fields
+dotnet_naming_rule.constant_fields_rule.style = pascal_case
+dotnet_naming_rule.constant_fields_rule.severity = warning
+
+dotnet_naming_rule.constant_locals_rule.symbols = constant_locals
+dotnet_naming_rule.constant_locals_rule.style = pascal_case
+dotnet_naming_rule.constant_locals_rule.severity = warning
+
+dotnet_naming_rule.static_fields_rule.symbols = static_fields
+dotnet_naming_rule.static_fields_rule.style = static_field_style
+dotnet_naming_rule.static_fields_rule.severity = warning
+
+dotnet_naming_rule.instance_fields_rule.symbols = instance_fields
+dotnet_naming_rule.instance_fields_rule.style = camel_case
+dotnet_naming_rule.instance_fields_rule.severity = warning
+
+dotnet_naming_rule.locals_and_parameters_rule.symbols = locals_and_parameters
+dotnet_naming_rule.locals_and_parameters_rule.style = camel_case
+dotnet_naming_rule.locals_and_parameters_rule.severity = warning

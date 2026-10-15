@@ -13,7 +13,7 @@
 | レンダーパイプライン | URP |
 | 入力 | Input System（`InputActionReference` を `SerializeField` で受け取る） |
 | Gitクライアント | SourceTree |
-| ブランチ戦略 | GitHub Flow（`main` + `feature/xxx`） |
+| ブランチ戦略 | GitHub Flow（`main` + `feature/<名字>/xxx`） |
 
 > [!WARNING]
 > **6.3 LTS（6000.3.25f1）以外で開かないこと。**
@@ -150,6 +150,8 @@ Projectウィンドウのフォルダ・ファイルのアイコン右下に、�
 
 ## コーディングルール
 
+命名規則は、リポジトリ直下の `.editorconfig` で Visual Studio・VS Code・Rider に自動で適用されます（違反はエディタ上に警告として表示されます）。アクセス修飾子・名前空間・列挙型の値の名前は `.editorconfig` では確認できないので、レビューで確認します。
+
 ### 命名規則
 
 | 対象 | 書き方 | 例 |
@@ -166,6 +168,7 @@ Projectウィンドウのフォルダ・ファイルのアイコン右下に、�
 - **アンダースコアなどの接頭辞・接尾辞は付けない**（`_moveSpeed`、`m_moveSpeed`、`moveSpeed_` はすべて不可）
 - 例外は staticなメンバ変数の `s_` だけ
 - `[SerializeField]` を付けた変数もメンバ変数なので camelCase
+- 型名をそのまま camelCase にした名前でよい（`Rigidbody rigidbody;`、`Collider collider;`、`Camera camera;` など）。`rb` や `col` のように省略しない
 
 ### アクセス修飾子
 
@@ -178,29 +181,51 @@ Projectウィンドウのフォルダ・ファイルのアイコン右下に、�
 - 一番外側の型は省略すると `internal`、クラスの中のものは省略すると `private` になり、既定が違う。一番外側は迷わないように必ず書く
 - プロパティの `{ get; private set; }` の `private` は、省略できないので書く
 
+### 名前空間（必須）
+
+> [!IMPORTANT]
+> **すべてのスクリプトは必ず名前空間（`namespace`）の中に書く。** 名前空間のないスクリプトはレビューで差し戻します。
+
+| 置き場所 | 名前空間 | 例 |
+|---|---|---|
+| 本番（`Assets/_Project/<機能名>/` 以下） | `GFF2026.<機能名>` | `GFF2026.InGame` / `GFF2026.Title` |
+| 本番のエディタ拡張（`Assets/_Project/Editor/` 以下） | `GFF2026.EditorTools` | `GFF2026.EditorTools` |
+| 作業用（`Assets/_Sandbox/<名字>/` 以下） | `Sandbox.<名字>` | `Sandbox.Fukuno` |
+
+- `<機能名>` は `_Project` の直下のフォルダ名と同じにする（`_Project/InGame/` なら `GFF2026.InGame`）
+- `<名字>` は `_Sandbox` の自分のフォルダ名と同じにする（`_Sandbox/Fukuno/` なら `Sandbox.Fukuno`）
+- エディタ拡張だけ `GFF2026.Editor` にしないのは、Unity の `Editor` クラスと名前がぶつかるため
+- 名前空間が違う型を使うときは、ファイルの先頭に `using` を書く（例：`using GFF2026.InGame;`）
+- 砂場から本番へスクリプトを移すときは、名前空間も `Sandbox.<名字>` から `GFF2026.<機能名>` に書き換える
+
 ### 書き方の例
 
 ```csharp
-public class PlayerController : MonoBehaviour
+using UnityEngine;
+
+namespace GFF2026.InGame
 {
-    const float MaxSpeed = 10f;
-
-    static int s_playerCount;
-
-    [SerializeField] float moveSpeed = 5f;
-    Rigidbody rb;
-
-    public bool IsGrounded { get; private set; }
-
-    void Awake()
+    public class PlayerController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-        s_playerCount++;
-    }
+        const float MaxSpeed = 10f;
 
-    public void TakeDamage(int amount)
-    {
-        // ...
+        static int s_playerCount;
+
+        [SerializeField] float moveSpeed = 5f;
+        Rigidbody rigidbody;
+
+        public bool IsGrounded { get; private set; }
+
+        void Awake()
+        {
+            rigidbody = GetComponent<Rigidbody>();
+            s_playerCount++;
+        }
+
+        public void TakeDamage(int amount)
+        {
+            // ...
+        }
     }
 }
 ```
@@ -225,10 +250,13 @@ main ─────●─────────●─────────
 
 | 種類 | 形式 | 例 |
 |---|---|---|
-| 機能追加 | `feature/<機能名>` | `feature/player-move` |
-| 不具合修正 | `fix/<不具合名>` | `fix/jump-double-input` |
+| 機能追加 | `feature/<名字>/<機能名>` | `feature/fukuno/player-jump` |
+| 不具合修正 | `fix/<名字>/<不具合名>` | `fix/fukuno/player-jump` |
 
-最初は機能単位（`feature/player`）で大きめに切ってよい。制作が進んでタスクが見えてきたら、`feature/player-jump` のようにタスク単位にしてPRを小さくする。
+- **作業者の名字を必ず間に挟む。** 誰のブランチかが名前だけで分かるようにするため
+- 名字はローマ字の小文字（`_Sandbox` のフォルダ名を小文字にしたもの）。単語の区切りは `-`（ハイフン）
+
+最初は機能単位（`feature/fukuno/player`）で大きめに切ってよい。制作が進んでタスクが見えてきたら、`feature/fukuno/player-jump` のようにタスク単位にしてPRを小さくする。
 
 ### コミット
 
@@ -245,6 +273,8 @@ main ─────●─────────●─────────
 - [ ] 本番シーン（`_Project` 内の `.unity`）の変更は配置担当によるものか
 - [ ] 本番（`_Project`）が `_Sandbox` のものを参照していない
 - [ ] 担当外のフォルダを変更していれば、その担当者がレビューしている
+- [ ] ブランチ名に作業者の名字が入っている（`feature/<名字>/...` / `fix/<名字>/...`）
+- [ ] すべてのスクリプトが名前空間の中に書かれている（本番は `GFF2026.<機能名>`、砂場は `Sandbox.<名字>`）
 - [ ] コーディングルール（命名規則・アクセス修飾子）に沿っている
 - [ ] `.meta` ファイルが一緒にコミットされている
 - [ ] 動く状態になっている
