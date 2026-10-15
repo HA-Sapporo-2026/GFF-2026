@@ -5,7 +5,7 @@ namespace Sandbox.Gunji
 {
     public class PlayerJump : MonoBehaviour
     {
-        public float jumpPower = 5.0f;
+        [SerializeField] float jumpPower = 5.0f; // privateはデフォルト扱いなので記述しなくてOK
 
         public Rigidbody rigidbody;
 
