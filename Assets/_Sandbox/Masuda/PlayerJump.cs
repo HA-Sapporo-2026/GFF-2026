@@ -9,6 +9,8 @@ namespace Sandbox.Masuda
 
         [SerializeField] float jumpPower = 5.0f;
 
+        public float JumpPower { get => jumpPower; set => jumpPower = value; }
+
         [SerializeField] InputAction jumpAction;
 
         bool isGround = true;

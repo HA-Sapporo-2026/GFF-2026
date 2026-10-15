@@ -9,9 +9,9 @@ namespace Sandbox.Masuda
 
         [SerializeField]float moveSpeed = 5.0f;
 
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
         [SerializeField] InputAction moveAction;
-
-
     
         private void OnEnable()
         {
