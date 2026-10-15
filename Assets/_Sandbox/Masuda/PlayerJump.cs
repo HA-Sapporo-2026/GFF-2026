@@ -8,6 +8,7 @@ namespace Sandbox.Masuda
         [SerializeField] Rigidbody rigidbody;
 
         [SerializeField] float jumpPower = 5.0f;
+
         [SerializeField] InputAction jumpAction;
 
         bool isGround = true;
@@ -28,6 +29,8 @@ namespace Sandbox.Masuda
             if(jumpAction.WasPressedThisFrame() && isGround)
             {
                 rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, jumpPower, rigidbody.linearVelocity.z);
+
+                isGround = false;
             }
         }
 
