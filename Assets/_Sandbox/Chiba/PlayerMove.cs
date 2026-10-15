@@ -5,10 +5,10 @@ namespace Sandbox.Chiba
 {
     public class PlayerMove : MonoBehaviour
     {
-        public InputAction moveAction;
+        [SerializeField]InputAction moveAction;
 
-        public Rigidbody rigidbody;
-        public float speed;
+        [SerializeField]Rigidbody rigidbody;
+        [SerializeField]float speed;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {

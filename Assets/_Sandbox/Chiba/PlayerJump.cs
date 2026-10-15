@@ -5,12 +5,10 @@ namespace Sandbox.Chiba
 {
     public class PlayerJump : MonoBehaviour
     {
-        public InputAction jumpAction;
-        public Rigidbody rigidbody;
-        // 床を検知するトリガーの当たり判定
-        public Collider jumpTrigger;
+        [SerializeField]InputAction jumpAction;
+        [SerializeField]Rigidbody rigidbody;
         // ジャンプ力
-        public float jumpHeight = 5;
+        [SerializeField]float jumpHeight = 5;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void OnEnable()
         {
@@ -22,9 +20,11 @@ namespace Sandbox.Chiba
         }
         private void OnCollisionStay(Collision collision)
         {
-            if (jumpAction./*IsPressed()*/WasPressedThisFrame())
+            if (jumpAction.WasPressedThisFrame())
             {
-                rigidbody.linearVelocity += new Vector3(0, jumpHeight - rigidbody.linearVelocity.y, 0);
+                Vector3 velocity = rigidbody.linearVelocity;
+                velocity.y = jumpHeight;
+                rigidbody.linearVelocity = velocity;
             }
         }
     }
