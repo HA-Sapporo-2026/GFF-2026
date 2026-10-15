@@ -506,10 +506,11 @@ GameObject:
   - component: {fileID: 1533494824}
   - component: {fileID: 1533494823}
   - component: {fileID: 1533494822}
-  - component: {fileID: 1533494821}
   - component: {fileID: 1533494826}
+  - component: {fileID: 1533494821}
   - component: {fileID: 1533494820}
   - component: {fileID: 1533494825}
+  - component: {fileID: 1533494827}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -579,6 +580,8 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
     m_Priority: 0
+  rigidbody: {fileID: 1533494826}
+  moveSpeed: 3
 --- !u!65 &1533494821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -702,8 +705,8 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
-  rd: {fileID: 1533494826}
-  jumpPower: 5
+  rigidbody: {fileID: 1533494826}
+  jumpPower: 3
 --- !u!54 &1533494826
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -731,6 +734,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1533494827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533494819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44abc79183d19c4b896a9422d3c37b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PLayerDath
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 137e6645-636c-45b8-82be-c86e7e20edf5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 70ba9e13-f7f1-417e-8bdb-fc2f59e980fc
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
+  rigidbody: {fileID: 1533494826}
+  speedMagnification: 3.5
+  jumpMagnification: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

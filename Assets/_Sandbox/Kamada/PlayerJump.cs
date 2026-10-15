@@ -9,9 +9,12 @@ namespace Sandbox.Kamada
 
         [SerializeField] Rigidbody rigidbody;
 
-        public float jumpPower = 3.0f;
+        [SerializeField] float jumpPower;
+
 
         bool isGroundFlag = false;
+
+        public float JumpPower { get => jumpPower; set => jumpPower = value; }
 
         private void OnEnable()
         {
@@ -31,10 +34,12 @@ namespace Sandbox.Kamada
                 return;
             }
 
-
             if (jumpAction.WasPressedThisFrame())
             {
-                rigidbody.linearVelocity = new Vector3(0.0f, jumpPower,0.0f);
+                rigidbody.linearVelocity = 
+                    new Vector3(rigidbody.linearVelocity.x, jumpPower,rigidbody.linearVelocity.z);
+
+                isGroundFlag = false;
             }
         }
 
@@ -47,8 +52,7 @@ namespace Sandbox.Kamada
         {
             isGroundFlag = false;
         }
-
-    }
+    }  
 
 }
 

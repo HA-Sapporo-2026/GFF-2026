@@ -7,6 +7,12 @@ namespace Sandbox.Kamada
     {
         [SerializeField] InputAction moveAction;
 
+        [SerializeField] Rigidbody rigidbody;
+
+        [SerializeField] float moveSpeed = 1.0f;
+
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
         private void OnEnable()
         {
             moveAction.Enable();
@@ -28,8 +34,11 @@ namespace Sandbox.Kamada
         {
             Vector2 input = moveAction.ReadValue<Vector2>();
 
-            transform.position +=
-                new Vector3(input.x * Time.deltaTime, 0.0f, input.y * Time.deltaTime);
+            rigidbody.linearVelocity =
+                new Vector3(input.x, rigidbody.linearVelocity.y, input.y);
+
+            transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,0.0f);
+
         }
     }
 }
