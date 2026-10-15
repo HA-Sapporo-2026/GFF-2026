@@ -9,7 +9,9 @@ namespace Sandbox.Kamada
 
         [SerializeField] Rigidbody rigidbody;
 
-        [SerializeField] float moveSpeed = 1.0f; 
+        [SerializeField] float moveSpeed = 1.0f;
+
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
         private void OnEnable()
         {
@@ -38,15 +40,5 @@ namespace Sandbox.Kamada
             transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,0.0f);
 
         }
-
-        public void MoveSpeedSet(float power)
-        {
-            moveSpeed = power;
-        }
-        public float MoveSpeedGet()
-        {
-            return moveSpeed;
-        }
-
     }
 }

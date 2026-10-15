@@ -1,4 +1,3 @@
-using Sandbox.Chiba;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,12 +13,14 @@ namespace Sandbox.Kamada
 
         PlayerMove playerMove;
 
-        float initJumpPower = 0;
+        float jumpPower;
 
-        float initMoveSpeed = 0;
+        float moveSpeed;
 
+        // 移動スピードの上昇倍率
         [SerializeField] float speedMagnification = 2.0f;
 
+        // ジャンプパワーの上昇倍率
         [SerializeField] float jumpMagnification = 2.0f;
 
         private void Start()
@@ -28,9 +29,9 @@ namespace Sandbox.Kamada
 
             playerMove = GetComponent<PlayerMove>();
 
-            initJumpPower = playerJump.JumpPowerGet();
+            jumpPower = playerJump.JumpPower;
 
-            initMoveSpeed = playerMove.MoveSpeedGet();
+            moveSpeed = playerMove.MoveSpeed;
         }
 
         private void OnEnable()
@@ -48,15 +49,16 @@ namespace Sandbox.Kamada
         {
             if (dashAction.IsPressed())
             {
-                playerMove.MoveSpeedSet(initMoveSpeed * speedMagnification);
+                playerMove.MoveSpeed  = moveSpeed * speedMagnification;
 
-                playerJump.JumpPowerSet(initJumpPower * jumpMagnification);
+                playerJump.JumpPower  = jumpPower * jumpMagnification;
 
                 return;
             }
 
-            playerMove.MoveSpeedSet(initMoveSpeed);
-            playerJump.JumpPowerSet(initJumpPower);
+            playerMove.MoveSpeed = moveSpeed;
+
+            playerJump.JumpPower = jumpPower;
         }
     }
 }
