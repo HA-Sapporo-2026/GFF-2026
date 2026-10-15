@@ -31,7 +31,7 @@ namespace Sandbox.Chiba
             {
                 Vector3 velocity = rigidbody.linearVelocity;
                 velocity.y = jumpHeight;
-                if (move.moveAction.ReadValue<Vector2>() != Vector2.zero)
+                if (move.MoveInput != Vector2.zero)
                     velocity.y = jumpHeight + (Mathf.Abs(velocity.x) + Mathf.Abs(velocity.z)) * 0.2f;
                 rigidbody.linearVelocity = velocity;
             }
