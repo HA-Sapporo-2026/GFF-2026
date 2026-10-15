@@ -28,7 +28,7 @@ namespace Sandbox.Masuda
         {
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-            rb.linearVelocity = new Vector3(moveInput.x, 0.0f, moveInput.y);
+            rb.linearVelocity = new Vector3(moveInput.x * moveSpeed,rb.linearVelocity.y, moveInput.y * moveSpeed);
         }
     }
 
