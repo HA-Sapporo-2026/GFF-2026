@@ -7,7 +7,7 @@ namespace Sandbox.Kamada
     {
         [SerializeField] InputAction jumpAction;
 
-        [SerializeField] Rigidbody rd;
+        [SerializeField] Rigidbody rigidbody;
 
         public float jumpPower = 3.0f;
 
@@ -23,12 +23,6 @@ namespace Sandbox.Kamada
             jumpAction.Disable();
         }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
-
-        }
-
         // Update is called once per frame
         void Update()
         {
@@ -40,9 +34,7 @@ namespace Sandbox.Kamada
 
             if (jumpAction.WasPressedThisFrame())
             {
-                rd.linearVelocity = new Vector3(0.0f, jumpPower,0.0f);
-
-                Debug.Log("A");
+                rigidbody.linearVelocity = new Vector3(0.0f, jumpPower,0.0f);
             }
         }
 
