@@ -9,7 +9,7 @@ namespace Sandbox.Kamada
 
         [SerializeField] Rigidbody rigidbody;
 
-        public float jumpPower = 3.0f;
+        [SerializeField] float jumpPower;
 
         bool isGroundFlag = false;
 
@@ -31,10 +31,12 @@ namespace Sandbox.Kamada
                 return;
             }
 
-
             if (jumpAction.WasPressedThisFrame())
             {
-                rigidbody.linearVelocity = new Vector3(0.0f, jumpPower,0.0f);
+                rigidbody.linearVelocity = 
+                    new Vector3(rigidbody.linearVelocity.x, jumpPower,rigidbody.linearVelocity.z);
+
+                isGroundFlag = false;
             }
         }
 
@@ -48,7 +50,16 @@ namespace Sandbox.Kamada
             isGroundFlag = false;
         }
 
-    }
+        public void JumpPowerSet(float power)
+        {
+            jumpPower = power;
+        }
+        public float JumpPowerGet()
+        {
+            return jumpPower;
+        }
+
+    }  
 
 }
 
