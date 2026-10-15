@@ -5,11 +5,11 @@ namespace Sandbox.Masuda
 {
     public class PlayerMove : MonoBehaviour
     {
-        public Rigidbody rb;
+        [SerializeField] Rigidbody rigidbody;
 
-        float moveSpeed = 5.0f;
+        [SerializeField]float moveSpeed = 5.0f;
 
-        public InputAction moveAction;
+        [SerializeField] InputAction moveAction;
 
 
     
@@ -28,7 +28,7 @@ namespace Sandbox.Masuda
         {
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-            rb.linearVelocity = new Vector3(moveInput.x, 0.0f, moveInput.y);
+            rigidbody.linearVelocity = new Vector3(moveInput.x * moveSpeed, rigidbody.linearVelocity.y, moveInput.y * moveSpeed);
         }
     }
 
