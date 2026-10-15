@@ -8,7 +8,7 @@ namespace Sandbox.Chiba
         public InputAction moveAction;
 
         public Rigidbody rigidbody;
-
+        public float speed;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -29,7 +29,7 @@ namespace Sandbox.Chiba
         void Update()
         {
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
-            rigidbody.linearVelocity = new Vector3(moveInput.x, 0, moveInput.y) /** Time.deltaTime*/;
+            rigidbody.linearVelocity = new Vector3(moveInput.x * speed, rigidbody.linearVelocity.y, moveInput.y * speed) /** Time.deltaTime*/;
         }
     }
 
