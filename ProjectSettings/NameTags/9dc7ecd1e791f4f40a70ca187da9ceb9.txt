@@ -1,0 +1,2 @@
+name: 武藤
+path: Assets/_Project/Commom/Scripts/FadeManager.cs
