@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using GFF2026.Common;
 
 public class FadeManager : SingletonMonoBehaviour<FadeManager>
 {

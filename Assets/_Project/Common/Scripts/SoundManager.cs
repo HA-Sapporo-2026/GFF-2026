@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GFF2026.Common;
 using UnityEngine;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
@@ -31,10 +32,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     [SerializeField] List<seData> seList;
     Dictionary<string, AudioClip> seDictionary;
 
-    protected override void Awake()
+    protected override void OnAwake()
     {
-        base.Awake();
-
         //BGMの名前とBGMのクリップを繋ぐ処理
         bgmDictionary = new Dictionary<string, AudioClip>();
         foreach (var bgm in bgmList)
