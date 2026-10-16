@@ -8,11 +8,6 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     [SerializeField] Image fadeImage; // フェード用UI Image
     [SerializeField] float fadeDuration = 1f; // フェード時間（秒）
 
-
-    public void FadeToScene()
-    {
-        StartCoroutine(FadeOut());
-    }
     //画面を透明化
     public IEnumerator FadeIn()
     {
@@ -35,7 +30,6 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
             yield return null;
         }
         yield return null; // 1フレーム待つ
-        StartCoroutine(FadeIn());
     }
 
     private void SetAlpha(float alpha)
