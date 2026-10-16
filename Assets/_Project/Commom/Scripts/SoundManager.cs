@@ -19,7 +19,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         public AudioClip bgmAudio;
     }
     [SerializeField] List<bgmData> bgmList;
-    Dictionary<string, AudioClip> bgmDic;
+    Dictionary<string, AudioClip> bgmDictionary;
 
     //SEの名前、AudioClipを管理するstruct(構造体)
     [Serializable]
@@ -29,24 +29,24 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         public AudioClip seAudio;
     }
     [SerializeField] List<seData> seList;
-    Dictionary<string, AudioClip> seDic;
+    Dictionary<string, AudioClip> seDictionary;
 
     protected override void Awake()
     {
         base.Awake();
 
         //BGMの名前とBGMのクリップを繋ぐ処理
-        bgmDic = new Dictionary<string, AudioClip>();
+        bgmDictionary = new Dictionary<string, AudioClip>();
         foreach (var bgm in bgmList)
         {
-            bgmDic[bgm.bgmName] = bgm.bgmAudio;
+            bgmDictionary[bgm.bgmName] = bgm.bgmAudio;
         }
 
         //SEの名前とSEのクリップを繋ぐ処理
-        seDic = new Dictionary<string, AudioClip>();
+        seDictionary = new Dictionary<string, AudioClip>();
         foreach (var se in seList)
         {
-            seDic[se.seName] = se.seAudio;
+            seDictionary[se.seName] = se.seAudio;
         }
     }
 
@@ -55,10 +55,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     /// BGMのClipが存在しない場合、再生されずエラーは出ません。
     /// </summary>
     /// <param name="bgmName">BGM名の引数</param>
-    public void PlayBGM(string bgmName)
+    public void PlayBgm(string bgmName)
     {
         //引数bgmNameと一致するキーを探す
-        if(bgmDic.TryGetValue(bgmName, out AudioClip bgmAudio))
+        if(bgmDictionary.TryGetValue(bgmName, out AudioClip bgmAudio))
         {
             bgmSources.clip = bgmAudio;
 
@@ -72,10 +72,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     /// SEのClipが存在しない場合、再生されずエラーは出ません。
     /// </summary>
     /// <param name="seName">SE名の引数</param>
-    public void PlaySE(string seName)
+    public void PlaySe(string seName)
     {
         //引数seNameと一致するキーを探す
-        if (seDic.TryGetValue(seName, out AudioClip seAudio))
+        if (seDictionary.TryGetValue(seName, out AudioClip seAudio))
         {
             //一致したSEを再生
             seSources.PlayOneShot(seAudio);
