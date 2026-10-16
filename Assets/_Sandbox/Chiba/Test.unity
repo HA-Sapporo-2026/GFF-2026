@@ -353,7 +353,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: -14.37, z: 0.5}
-  m_LocalScale: {x: 33.702503, y: 20.799114, z: 9.1137}
+  m_LocalScale: {x: 1344.1233, y: 20.799114, z: 389.40106}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 1467999201}
   - component: {fileID: 1467999207}
   - component: {fileID: 1467999208}
+  - component: {fileID: 1467999209}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -718,6 +719,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &1467999209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467999200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ceb541dd986ab44cb812e71c72dac87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sandbox.Chiba.PlayerDash
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 58c30a4e-4b4a-4e6f-aa6a-7d575050e771
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f92a1ebf-df4c-4850-9f77-8edd7f1b707a
+      m_Path: <Keyboard>/shift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
+  speedAfterDash: 5
+  dashSpeed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
