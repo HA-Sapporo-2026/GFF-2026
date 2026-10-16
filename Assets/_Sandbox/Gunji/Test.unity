@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 359515398}
   - component: {fileID: 359515397}
   - component: {fileID: 359515403}
+  - component: {fileID: 359515404}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -354,6 +355,41 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Jump
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
+--- !u!114 &359515404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359515396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b82a1dfb52b8f4cb01b3fbfcde8e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sandbox.Gunji.PlayerDash
+  dashSpeed: 4
+  dashJumpPower: 10
+  speed: 0
+  jumpPower: 0
+  rigidbody: {fileID: 359515397}
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d920629a-5ef8-49b2-b140-069ad0386f11
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 423ba8ad-bd1e-40f2-b88c-b232dad4b1ee
+      m_Path: <Keyboard>/shift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
