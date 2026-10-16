@@ -1,2 +1,2 @@
 name: 丹羽
-path: Assets/_Project/Commom/Scripts/SoundManager.cs
+path: Assets/_Project/Common/Scripts/SoundManager.cs
