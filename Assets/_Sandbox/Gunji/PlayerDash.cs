@@ -37,8 +37,8 @@ namespace Sandbox.Gunji
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            playerMove = FindAnyObjectByType<PlayerMove>();
-            playerJump = FindAnyObjectByType<PlayerJump>();
+            playerMove = GetComponent<PlayerMove>();
+            playerJump = GetComponent<PlayerJump>();
 
              speed = playerMove.MoveSpeed;
              jumpPower = playerJump.JumpPower;
