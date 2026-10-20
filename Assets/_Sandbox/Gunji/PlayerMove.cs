@@ -4,10 +4,13 @@ using UnityEngine.Windows;
 
 namespace Sandbox.Gunji
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerMove : MonoBehaviour
     {
-        // 移動速度
         [SerializeField] float moveSpeed = 2.0f;
+
+        // 移動速度
+        public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
+
 
         // 物理移動用のコンポーネント
         [SerializeField] Rigidbody rigidbody;
