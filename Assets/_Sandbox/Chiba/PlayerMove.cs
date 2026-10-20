@@ -9,10 +9,13 @@ namespace Sandbox.Chiba
 
         [SerializeField]Rigidbody rigidbody;
         [SerializeField]float speed;
+        PlayerDash dash;
+
+        public Vector2 MoveInput { get; private set; }
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-
+            dash = this.GetComponent<PlayerDash>();
         }
 
         void OnEnable()
@@ -28,8 +31,8 @@ namespace Sandbox.Chiba
         // Update is called once per frame
         void Update()
         {
-            Vector2 moveInput = moveAction.ReadValue<Vector2>();
-            rigidbody.linearVelocity = new Vector3(moveInput.x * speed, rigidbody.linearVelocity.y, moveInput.y * speed) /** Time.deltaTime*/;
+            MoveInput = moveAction.ReadValue<Vector2>();
+            rigidbody.linearVelocity = new Vector3(MoveInput.x * speed * dash.dashSpeed, rigidbody.linearVelocity.y, MoveInput.y * speed * dash.dashSpeed) /** Time.deltaTime*/;
         }
     }
 
