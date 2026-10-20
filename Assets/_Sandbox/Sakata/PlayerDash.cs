@@ -6,7 +6,6 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] InputAction dashAction;
 
     public float dashSpeed = 2.0f;
-    public float dashJumpHeight = 1.5f;
     public bool dashFlag = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

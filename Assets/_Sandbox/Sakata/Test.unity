@@ -565,6 +565,8 @@ MonoBehaviour:
     m_Priority: 0
   playerDash: {fileID: 766050850}
   playerMove: {fileID: 766050843}
+  jumpPower: 5
+  dashJumpMultiplier: 1.5
 --- !u!114 &766050850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +598,6 @@ MonoBehaviour:
     m_Flags: 0
     m_Priority: 0
   dashSpeed: 2
-  dashJumpHeight: 1.25
   dashFlag: 0
 --- !u!1 &1646547469
 GameObject:
