@@ -10,6 +10,10 @@ namespace Sandbox.Sakata
         [SerializeField] Rigidbody rigidbody;
         [SerializeField] Collider collider;
         [SerializeField] InputAction jumpAction;
+        [SerializeField] PlayerDash playerDash;
+        [SerializeField] PlayerMove playerMove;
+        [SerializeField] float jumpPower = 5.0f;
+        [SerializeField] float dashJumpMultiplier = 1.5f;
 
         bool switchFloor;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +30,12 @@ namespace Sandbox.Sakata
         void Update()
         {
             if (jumpAction.WasPressedThisFrame() && !switchFloor)
-                rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 5.0f, rigidbody.linearVelocity.y);
+            {
+                if (playerDash.dashFlag && playerMove.moveFlag)
+                    rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, jumpPower * dashJumpMultiplier, rigidbody.linearVelocity.y);
+                else
+                    rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, jumpPower, rigidbody.linearVelocity.y);
+            }
         }
 
         private void OnCollisionStay(Collision collision)

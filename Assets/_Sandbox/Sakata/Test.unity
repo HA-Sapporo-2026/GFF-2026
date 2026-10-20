@@ -338,6 +338,7 @@ GameObject:
   - component: {fileID: 766050844}
   - component: {fileID: 766050843}
   - component: {fileID: 766050849}
+  - component: {fileID: 766050850}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -408,6 +409,8 @@ MonoBehaviour:
       m_Flags: 8
     m_Flags: 0
     m_Priority: 0
+  playerDash: {fileID: 766050850}
+  moveFlag: 0
 --- !u!54 &766050844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -560,6 +563,42 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
     m_Priority: 0
+  playerDash: {fileID: 766050850}
+  playerMove: {fileID: 766050843}
+  jumpPower: 5
+  dashJumpMultiplier: 1.5
+--- !u!114 &766050850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766050842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0020adc23ea3efb4aa1e9ed035b50a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDash
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a01ad241-47b3-4666-bd76-79fda5924676
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e11b1fdc-4534-4c7a-913e-2f46a7653d40
+      m_Path: <Keyboard>/leftShift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
+  dashSpeed: 2
+  dashFlag: 0
 --- !u!1 &1646547469
 GameObject:
   m_ObjectHideFlags: 0
