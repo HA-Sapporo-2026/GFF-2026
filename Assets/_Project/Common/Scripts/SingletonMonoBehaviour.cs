@@ -1,4 +1,6 @@
 // Last assigned by 福野
+
+using System;
 using UnityEngine;
 
 namespace GFF2026.Common
@@ -24,7 +26,8 @@ namespace GFF2026.Common
         /// </summary>
         [SerializeField] bool dontDestroyOnLoad;
 
-        public static T Instance => s_instance;
+        public static T Instance => 
+            s_instance ?? throw new NullReferenceException($"{typeof(T)}のシングルトンインスタンスがnullです。シーン上に使用するシングルトンクラスのプレハブを配置してください。");
 
         void Awake()
         {
