@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 466896404}
   - component: {fileID: 466896403}
   m_Layer: 0
-  m_Name: TitleManager
+  m_Name: TestTitleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,8 +724,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 466896403}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: NextScene
+        m_TargetAssemblyTypeName: Sandbox.Kamada.TitleManager, Assembly-CSharp
+        m_MethodName: OnStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
