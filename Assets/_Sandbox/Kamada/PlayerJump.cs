@@ -11,7 +11,6 @@ namespace Sandbox.Kamada
 
         [SerializeField] float jumpPower;
 
-
         bool isGroundFlag = false;
 
         public float JumpPower { get => jumpPower; set => jumpPower = value; }
