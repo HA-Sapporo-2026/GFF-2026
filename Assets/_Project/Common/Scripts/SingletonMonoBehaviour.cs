@@ -35,6 +35,7 @@ namespace GFF2026.Common
             // 既存のインスタンスを優先する為自身を破棄します。
             if (s_instance != null)
             {
+                Debug.LogWarning($"{typeof(T)}のシングルトンインスタンスが既に存在する為、自身を破棄します。");
                 Destroy(gameObject);
                 return;
             }
