@@ -11,18 +11,23 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 
     protected override void OnAwake()
     {
-        base.OnAwake();
-        if (fadeImage != null)
+        if (fadeImage == null)
         {
-            SetAlpha(0f);
+            Debug.LogError("フェードイメージが設定されていません。");
         }
-        if (graphicRaycaster != null)
+        if (graphicRaycaster == null)
         {
-            graphicRaycaster.enabled = true;
+            Debug.LogError("グラフィックレイキャスターが設定されていません。");
         }
     }
 
-    //画面を透明化
+
+    /// <summary>
+    /// 画面を指定時間で明るくする
+    /// 引数のfadeDurationで時間を設定できる
+    /// </summary>
+    /// <param name="fadeDuration"></param>
+    /// <returns></returns>
     public IEnumerator FadeIn(float fadeDuration = 1.0f)
     {
         float t = 0f;
@@ -34,10 +39,17 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
         }
         graphicRaycaster.enabled = false;
     }
+
+
+    /// <summary>
+    /// 画面を指定時間で暗くする
+    /// 引数のfadeDurationで時間を設定できる
+    /// </summary>
+    /// <param name="fadeDuration"></param>
+    /// <returns></returns>
     public IEnumerator FadeOut(float fadeDuration = 1.0f)
     {
         graphicRaycaster.enabled = true;
-        //画面を暗くする
         float t = 0f;
         while (t < fadeDuration)
         {
