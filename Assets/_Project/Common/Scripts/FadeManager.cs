@@ -7,43 +7,62 @@ using GFF2026.Common;
 public class FadeManager : SingletonMonoBehaviour<FadeManager>
 {
     [SerializeField] Image fadeImage; // フェード用UI Image
-    [SerializeField] float fadeDuration = 1f; // フェード時間（秒）
     [SerializeField] GraphicRaycaster graphicRaycaster;
 
-    //画面を透明化
-    public IEnumerator FadeIn()
+    protected override void OnAwake()
+    {
+        if (fadeImage == null)
+        {
+            Debug.LogError("フェードイメージが設定されていません。");
+        }
+        if (graphicRaycaster == null)
+        {
+            Debug.LogError("グラフィックレイキャスターが設定されていません。");
+        }
+    }
+
+
+    /// <summary>
+    /// 画面を指定時間で明るくする
+    /// 引数のfadeDurationで時間を設定できる
+    /// </summary>
+    /// <param name="fadeDuration"></param>
+    /// <returns></returns>
+    public IEnumerator FadeIn(float fadeDuration = 1.0f)
     {
         float t = 0f;
         while (t < fadeDuration)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             SetAlpha(1f - Mathf.Clamp01(t / fadeDuration));
             yield return null;
         }
         graphicRaycaster.enabled = false;
     }
-    public IEnumerator FadeOut()
+
+
+    /// <summary>
+    /// 画面を指定時間で暗くする
+    /// 引数のfadeDurationで時間を設定できる
+    /// </summary>
+    /// <param name="fadeDuration"></param>
+    /// <returns></returns>
+    public IEnumerator FadeOut(float fadeDuration = 1.0f)
     {
-        Debug.Log($"raycaster: {graphicRaycaster}");
         graphicRaycaster.enabled = true;
-        //画面を暗くする
         float t = 0f;
         while (t < fadeDuration)
         {
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
             SetAlpha(Mathf.Clamp01(t / fadeDuration));//時間の経過に合わせて、画面の暗さ（透明度）を変える処理
             yield return null;
         }
-        yield return null; // 1フレーム待つ
     }
 
     private void SetAlpha(float alpha)
     {
-        if (fadeImage != null)
-        {
-            Color c = fadeImage.color;
-            c.a = alpha;
-            fadeImage.color = c;
-        }
+        Color c = fadeImage.color;
+        c.a = alpha;
+        fadeImage.color = c;
     }
 }
