@@ -1,11 +1,12 @@
 using GFF2026.Common;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Sandbox.Hirata
 {
     public class IdleState : IState
     {
-        public bool CanTransitionFrom(IState from)
+        public bool TryTransition(IState from)
         {
             // MoveStateからIdleStateへ遷移できる
             return from is MoveState;
@@ -27,6 +28,12 @@ namespace Sandbox.Hirata
             if (Time.frameCount % 120 == 0)
             {
                 Debug.Log("IdleState: Update");
+            }
+            // SpaceキーでMoveStateに切り替える
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                bool result = stateMachine.TryChangeState<MoveState>();
+                Debug.Log($"MoveStateへの遷移結果: {result}");
             }
         }
     }

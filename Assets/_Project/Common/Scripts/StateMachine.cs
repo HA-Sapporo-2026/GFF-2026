@@ -6,23 +6,36 @@ namespace GFF2026.Common
 {
     public interface IStateMachine
     {
-        // 指定したステートに遷移できるか確認し、
-        // 可能なら実際に遷移する
-        bool CanChangeState<TState>() where TState : IState;
+
+
+        /// <summary>
+        /// 指定したステートに遷移できるか確認し、
+        /// 可能なら実際に遷移する
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <returns></returns>
+        bool TryChangeState<TState>() where TState : IState;
     }
 
     public class StateMachine : IStateMachine
     {
-        // StateMachineが管理するステートを保存する
-        // HashSetを使って、ステートのインスタンスをまとめて管理する
+        /// <summary>
+        /// StateMachineが管理するステートを保存する
+        /// HashSetを使って、ステートのインスタンスをまとめて管理する
+        /// </summary>
         readonly HashSet<IState> states = new();
 
-        // 現在実行しているステート
-        // 最初は何も設定されていないためnull
+        /// <summary>
+        /// 現在実行しているステート
+        /// 最初は何も設定されていないためnull
+        /// </summary>
         IState currentState;
 
 
-        // ステートをStateMachineに登録する
+        /// <summary>
+        /// ステートをStateMachineに登録する
+        /// </summary>
+        /// <param name="state"></param>
         public void Register(IState state)
         {
             // 登録するステートを管理リストに追加する
@@ -30,15 +43,19 @@ namespace GFF2026.Common
         }
 
 
-        // 指定したステートへの遷移を試みる
-        // 遷移できたらtrue、できなければfalseを返す
-        public bool CanChangeState<TState>() where TState : IState
+        /// <summary>
+        /// 指定したステートへの遷移を試みる
+        /// 遷移できたらtrue、できなければfalseを返す
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <returns></returns>
+        public bool TryChangeState<TState>() where TState : IState
         {
             // 登録済みのステートから、指定した型のステートを探す
             IState nextState = states.First(x => x is TState);
 
             // 遷移先のステートに、現在のステートから遷移できるか確認する
-            if (!nextState.CanTransitionFrom(currentState))
+            if (!nextState.TryTransition(currentState))
             {
                 // 遷移できない場合は、何も変更せずfalseを返す
                 return false;
@@ -58,7 +75,10 @@ namespace GFF2026.Common
         }
 
 
-        // ゲーム開始時などに、最初のステートを設定する
+        /// <summary>
+        /// ゲーム開始時などに、最初のステートを設定する
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
         public void SetInitialState<TState>() where TState : IState
         {
             // 登録済みのステートから、指定した型のステートを探す
@@ -72,7 +92,9 @@ namespace GFF2026.Common
         }
 
 
-        // 現在のステートを更新する
+        /// <summary>
+        /// 現在のステートを更新する
+        /// </summary>
         public void Update()
         {
             // 現在のステートが存在する場合、その更新処理を実行する

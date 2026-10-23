@@ -5,7 +5,7 @@ namespace GFF2026.Common
     public interface IState
     {
         // そのStateからこのStateに遷移できるか
-        bool CanTransitionFrom(IState from);
+        bool TryTransition(IState from);
 
         // そのステートが開始した時
         void Enter();

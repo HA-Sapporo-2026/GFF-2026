@@ -1,3 +1,4 @@
+using GFF2026.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,19 +31,9 @@ namespace Sandbox.Hirata
                 return;
             }
 
-            // SpaceキーでMoveStateに切り替える
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                bool result = stateMachine.CanChangeState<MoveState>();
-                Debug.Log($"MoveStateへの遷移結果: {result}");
-            }
+           
 
-            // EnterキーでIdleStateに切り替える
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
-            {
-                bool result = stateMachine.CanChangeState<IdleState>();
-                Debug.Log($"IdleStateへの遷移結果: {result}");
-            }
+            
         }
     }
 }

@@ -1,3 +1,4 @@
+using GFF2026.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
