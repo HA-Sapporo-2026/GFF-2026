@@ -14,7 +14,13 @@ namespace GFF2026.Common
         /// </summary>
         /// <typeparam name="TState"></typeparam>
         /// <returns></returns>
-        bool TryChangeState<TState>() where TState : IState;
+        bool TryTransition<TState>() where TState : IState;
+
+        /// <summary>
+        /// 指定したステートに強制的に遷移する
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        void ForceTransition<TState>() where TState : IState;
     }
 
     public class StateMachine : IStateMachine
@@ -49,13 +55,13 @@ namespace GFF2026.Common
         /// </summary>
         /// <typeparam name="TState"></typeparam>
         /// <returns></returns>
-        public bool TryChangeState<TState>() where TState : IState
+        public bool TryTransition<TState>() where TState : IState
         {
             // 登録済みのステートから、指定した型のステートを探す
             IState nextState = states.First(x => x is TState);
 
             // 遷移先のステートに、現在のステートから遷移できるか確認する
-            if (!nextState.TryTransition(currentState))
+            if (!nextState.CanTransitionFrom(currentState))
             {
                 // 遷移できない場合は、何も変更せずfalseを返す
                 return false;
@@ -74,6 +80,20 @@ namespace GFF2026.Common
             return true;
         }
 
+        public void ForceTransition<TState>() where TState : IState
+        {
+            // 登録済みのステートから、指定した型のステートを探す
+            IState nextState = states.First(x => x is TState);
+
+            // 現在のステートがあれば、終了処理を実行する
+            currentState?.Exit();
+
+            // 遷移先のステートを現在のステートに設定する
+            currentState = nextState;
+
+            // 新しいステートの開始処理を実行する
+            currentState.Enter();
+        }
 
         /// <summary>
         /// ゲーム開始時などに、最初のステートを設定する

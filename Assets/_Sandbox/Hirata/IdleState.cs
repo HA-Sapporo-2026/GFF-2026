@@ -6,7 +6,7 @@ namespace Sandbox.Hirata
 {
     public class IdleState : IState
     {
-        public bool TryTransition(IState from)
+        public bool CanTransitionFrom(IState from)
         {
             // MoveStateからIdleStateへ遷移できる
             return from is MoveState;
@@ -32,7 +32,7 @@ namespace Sandbox.Hirata
             // SpaceキーでMoveStateに切り替える
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                bool result = stateMachine.TryChangeState<MoveState>();
+                bool result = stateMachine.TryTransition<MoveState>();
                 Debug.Log($"MoveStateへの遷移結果: {result}");
             }
         }
