@@ -1,3 +1,4 @@
+using GFF2026.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,9 +6,10 @@ namespace Sandbox.Hirata
 {
     public class PlayerMove : MonoBehaviour
     {
+        private StateMachine stateMachine = new StateMachine();
         [SerializeField] InputActionReference moveAction;
         [SerializeField] float moveSpeed = 5f;
-        Rigidbody Rigidbody;
+        Rigidbody rigidbody;
 
         void OnEnable()
         {
@@ -21,10 +23,13 @@ namespace Sandbox.Hirata
 
         void Start()
         {
-            Rigidbody = GetComponent<Rigidbody>();
+            rigidbody = GetComponent<Rigidbody>();
         }
 
-    
+        void Update()
+        {
+            stateMachine.Update();
+        }
         void FixedUpdate()
         {
             Move();
@@ -37,8 +42,8 @@ namespace Sandbox.Hirata
                 transform.right * input.x +
                 transform.forward * input.y;
 
-            Rigidbody.MovePosition(
-                Rigidbody.position + move * moveSpeed
+            rigidbody.MovePosition(
+                rigidbody.position + move * moveSpeed
             );
         }
     }
