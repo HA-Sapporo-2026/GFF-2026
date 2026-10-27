@@ -6,8 +6,6 @@ namespace GFF2026.Common
 {
     public interface IStateMachine
     {
-
-
         /// <summary>
         /// 指定したステートに遷移できるか確認し、
         /// 可能なら実際に遷移する
@@ -36,8 +34,7 @@ namespace GFF2026.Common
         /// 最初は何も設定されていないためnull
         /// </summary>
         IState currentState;
-
-
+        
         /// <summary>
         /// ステートをStateMachineに登録する
         /// </summary>
@@ -47,7 +44,6 @@ namespace GFF2026.Common
             // 登録するステートを管理リストに追加する
             states.Add(state);
         }
-
 
         /// <summary>
         /// 指定したステートへの遷移を試みる
@@ -110,8 +106,7 @@ namespace GFF2026.Common
             // 最初のステートの開始処理を実行する
             currentState.Enter();
         }
-
-
+        
         /// <summary>
         /// 現在のステートを更新する
         /// </summary>

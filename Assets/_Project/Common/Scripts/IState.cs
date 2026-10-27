@@ -4,7 +4,6 @@ namespace GFF2026.Common
 {
     public interface IState
     {
-
         /// <summary>
         /// そのStateからこのStateに遷移できるか
         /// </summary>
