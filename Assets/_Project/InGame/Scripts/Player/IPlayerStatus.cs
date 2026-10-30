@@ -1,20 +1,22 @@
 // Last assigned by 平田
-using UnityEngine;
 
-public interface IPlayerStatus 
+namespace GFF2026.InGame
 {
-    /// <summary>
-    /// 攻撃力
-    /// </summary>
-    int AttackPower {  get; }
+    public interface IPlayerStatus
+    {
+        /// <summary>
+        /// 攻撃力
+        /// </summary>
+        int AttackPower { get; }
 
-    /// <summary>
-    /// 攻撃速度
-    /// </summary>
-    float AttackSpeed {  get; }
+        /// <summary>
+        /// 攻撃速度
+        /// </summary>
+        float AttackSpeed { get; }
 
-    /// <summary>
-    /// 移動速度
-    /// </summary>
-    float MoveSpeed { get; }
+        /// <summary>
+        /// 移動速度
+        /// </summary>
+        float MoveSpeed { get; }
+    }
 }
