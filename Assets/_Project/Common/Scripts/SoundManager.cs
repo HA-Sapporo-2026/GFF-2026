@@ -5,32 +5,40 @@ using System.Collections.Generic;
 using System.Linq;
 using GFF2026.Common;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
+    //AudioMixerに設定できるデシベルの値の下限値
+    const float MIN_VOLUME = 0.0001f;
+    //AudioMixerに設定できるデシベルの値の上限値
+    const float MAX_VOLUME = 1.0f;
+
     //BGMを再生するAudioSource
     [SerializeField] AudioSource bgmSources;
     //SEを再生するAudioSource
     [SerializeField] AudioSource seSources;
+    //AudioMixer
+    [SerializeField] AudioMixer audioMixer;
 
     //BGMの名前、AudioClipを管理するstruct(構造体)
     [Serializable]
-    struct bgmData
+    struct BgmData
     {
         public string bgmName;
         public AudioClip bgmAudio;
     }
-    [SerializeField] List<bgmData> bgmList;
+    [SerializeField] List<BgmData> bgmList;
     Dictionary<string, AudioClip> bgmDictionary;
 
     //SEの名前、AudioClipを管理するstruct(構造体)
     [Serializable]
-    struct seData
+    struct SeData
     {
         public string seName;
         public AudioClip seAudio;
     }
-    [SerializeField] List<seData> seList;
+    [SerializeField] List<SeData> seList;
     Dictionary<string, AudioClip> seDictionary;
 
     protected override void OnAwake()
@@ -194,5 +202,56 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             //キーに対応するSEクリップが存在しない場合、警告
             Debug.LogWarning($"PlaySe:指定されたキー({seName})に対応するSEが存在しません");
         }
+    }
+
+    /// <summary>
+    /// AudioMixerのMasterVolumeを変更する関数。
+    /// 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換されます。
+    /// </summary>
+    /// <param name="volume">音量指定の引数</param>
+    public void SetMasterVolume(float volume)
+    {
+        float dbVolume;
+
+        // 引数volumeの値を音響工学の公式: dB = 20 * log10(音量比)で変換
+        // 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換
+        dbVolume = 20f * Mathf.Log10(Mathf.Clamp(volume, MIN_VOLUME, MAX_VOLUME));
+
+        //AudioMixerのMasterの音量を変更
+        audioMixer.SetFloat("volume_master", dbVolume);
+    }
+
+    /// <summary>
+    /// AudioMixerのBgmVolumeを変更する関数。
+    /// 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換されます。
+    /// </summary>
+    /// <param name="volume">音量指定の引数</param>
+    public void SetBgmVolume(float volume)
+    {
+        float dbVolume;
+
+        // 引数volumeの値を音響工学の公式: dB = 20 * log10(音量比)で変換
+        // 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換
+        dbVolume = 20f * Mathf.Log10(Mathf.Clamp(volume, MIN_VOLUME, MAX_VOLUME));
+
+        //AudioMixerのBgmの音量を変更
+        audioMixer.SetFloat("volume_bgm", dbVolume);
+    }
+
+    /// <summary>
+    /// AudioMixerのSeVolumeを変更する関数。
+    /// 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換されます。
+    /// </summary>
+    /// <param name="volume">音量指定の引数</param>
+    public void SetSeVolume(float volume)
+    {
+        float dbVolume;
+
+        // 引数volumeの値を音響工学の公式: dB = 20 * log10(音量比)で変換
+        // 引数volumeの値が0以下または1を超えている場合下限値0.0001,上限値1に変換
+        dbVolume = 20f * Mathf.Log10(Mathf.Clamp(volume, MIN_VOLUME, MAX_VOLUME));
+
+        //AudioMixerのSeの音量を変更
+        audioMixer.SetFloat("volume_se", dbVolume);
     }
 }
