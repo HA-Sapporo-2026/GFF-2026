@@ -9,8 +9,8 @@
 public interface IDamageable
 {
     /// <summary>
-    /// ダメージを与える処理。
+    /// ダメージを受ける処理。
     /// </summary>
-    /// <param name="damage">与えるダメージ量</param>
+    /// <param name="damage">受けるダメージ量</param>
     void TakeDamage(int damage);
 }
