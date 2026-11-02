@@ -1,35 +1,39 @@
+using System;
 using UnityEngine;
 
-public class BlockPartsBase : MonoBehaviour
+public abstract class BlockPartsBase : MonoBehaviour
 {
     // 耐久値→英語でDurabilityらしいです。
     // 現在の耐久値
     public int Durability { get; private set; }
-    // 最大の耐久値
-    public int Max { get; private set; }
+    // 参照するパーツのデータ
+    public BlockPartsData Settings { get; private set; }
 
     // 耐久値を減らす処理の関数
     public void TakeDamage(int damage)
     {
-        bool canDamage = CanDamage();
+        // 当たったことを伝える
+        OnHit();
 
-        if(canDamage)
+        if(CanDamage())
         {
-            Durability -= damage;
-        }
+            Durability = Math.Max(Durability - damage, 0);
 
-        OnDamaged(damage,canDamage);
+            OnDamaged(damage);
 
-        if (Durability <= 0)
-        {
-            OnBroken();
+            if (Durability <= 0)
+            {
+                OnBroken();
+            }
         }
     }
 
+    protected virtual void OnHit() { }
+    
     protected virtual bool CanDamage() { return true; }
 
     // ダメージを受けた時の処理の関数
-    protected virtual void OnDamaged(int damage,bool canDamage) { }
+    protected virtual void OnDamaged(int damage) { }
 
     // 耐久値が0以下になったときの処理の関数
     protected virtual void OnBroken() { gameObject.SetActive(false); }
