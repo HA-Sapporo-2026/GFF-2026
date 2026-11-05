@@ -4,8 +4,18 @@ using UnityEngine;
 public class BlockPartsData : ScriptableObject
 {
     // ブロックパーツの耐久値
-    public int durability;
+    [SerializeField] int durability;
 
     // ブロックパーツの見た目に使用するマテリアル
-    public Material material;
+    [SerializeField] Material material;
+
+    /// <summary>
+    /// ブロックパーツの耐久値
+    /// </summary>
+    public int Durability => durability;
+
+    /// <summary>
+    /// ブロックパーツの見た目に使用するマテリアル
+    /// </summary>
+    public Material Material => material;
 }
