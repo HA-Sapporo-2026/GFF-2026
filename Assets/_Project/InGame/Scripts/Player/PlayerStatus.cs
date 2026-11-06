@@ -24,6 +24,7 @@ namespace GFF2026.InGame
         {
             AttackPower = Mathf.Min(AttackPower + power, 10000); // 10000は適当な最大攻撃力
         }
+
         /// <summary>
         /// 攻撃速度を加算する処理
         /// <summary>
