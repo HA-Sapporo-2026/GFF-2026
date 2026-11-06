@@ -7,7 +7,7 @@
             "id": "cce09ea0-1bb6-46e2-befc-15fa8c43bec0",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Rotate",
                     "type": "Value",
                     "id": "bfd2bfee-0b88-4ce5-8d0e-5cd916633de2",
                     "expectedControlType": "Vector2",
@@ -25,31 +25,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Rotate",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "09ce22ec-1051-4859-8480-63aa50ccf7a1",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "1be647e6-9f1f-448a-80e2-676791be82a1",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -58,7 +36,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -69,9 +47,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6fe2484b-81af-45c1-bb29-892e1419533b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

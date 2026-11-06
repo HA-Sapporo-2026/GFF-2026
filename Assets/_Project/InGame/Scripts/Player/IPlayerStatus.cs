@@ -1,3 +1,4 @@
+// Last assigned by 平田
 using UnityEngine;
 
 public interface IPlayerStatus 
