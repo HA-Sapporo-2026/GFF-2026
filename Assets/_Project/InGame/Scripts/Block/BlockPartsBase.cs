@@ -19,7 +19,16 @@ namespace GFF2026.InGame
         public int Durability { get; private set; }
 
         /// <summary>
-        /// 耐久値を減らす処理の関数
+        /// 初期化処理。
+        /// </summary>
+        void Awake()
+        {
+            // 自身の耐久値を初期値に設定する
+            Durability = data.Durability;
+        }
+
+        /// <summary>
+        /// 耐久値を減らす処理の関数。
         /// </summary>
         /// <param name="damage"></param>
         public void TakeDamage(int damage)
@@ -39,14 +48,14 @@ namespace GFF2026.InGame
         }
 
         /// <summary>
-        /// 当たったことを伝える関数
+        /// 当たったことを伝える関数。
         /// </summary>
         protected virtual void OnHit()
         {
         }
 
         /// <summary>
-        /// ダメージを受けられるかを判断する関数
+        /// ダメージを受けられるかを判断する関数。
         /// </summary>
         /// <returns></returns>
         protected virtual bool CanDamage()
@@ -55,7 +64,7 @@ namespace GFF2026.InGame
         }
 
         /// <summary>
-        /// ダメージを受けた時の処理の関数
+        /// ダメージを受けた時の処理の関数。
         /// </summary>
         /// <param name="damage">自身に与えたダメージ</param>
         protected virtual void OnDamaged(int damage)
@@ -63,7 +72,7 @@ namespace GFF2026.InGame
         }
 
         /// <summary>
-        /// 耐久値が0以下になったときの処理の関数
+        /// 耐久値が0以下になったときの処理の関数。
         /// </summary>
         protected virtual void OnBroken()
         {
