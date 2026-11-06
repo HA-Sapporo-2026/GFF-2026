@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// Last assigned by 丹羽
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GFF2026.InGame
