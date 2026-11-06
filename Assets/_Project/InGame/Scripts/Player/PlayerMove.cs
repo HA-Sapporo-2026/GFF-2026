@@ -12,12 +12,12 @@ namespace GFF2026.InGame
         [SerializeField] InputActionReference rotateAction;
 
         /// <summary>
-        /// プレイヤーが回転する速さ(1秒あたりの角度)
+        /// プレイヤーが回転する速さ（1秒あたりの角度）
         /// </summary>
         [SerializeField] float rotateSpeed = 90f;
 
         Rigidbody rigidbody;
-        PlayerMoveStatus playerMoveStatus;
+        IPlayerStatus status;
 
         /// <summary>
         /// Updateで取得した回転入力を保持する
@@ -29,8 +29,11 @@ namespace GFF2026.InGame
             // 同じGameObjectについているRigidbodyを取得する
             rigidbody = GetComponent<Rigidbody>();
 
-            // 移動速度を管理するPlayerMoveStatusを取得する
-            playerMoveStatus = GetComponent<PlayerMoveStatus>();
+            // IPlayerStatusを実装したコンポーネントを取得する
+            if (!TryGetComponent(out status))
+            {
+                Debug.LogError( $"{name} に IPlayerStatus を実装したコンポーネントがありません",this);
+            }
         }
 
         void OnEnable()
@@ -45,6 +48,7 @@ namespace GFF2026.InGame
 
         void Update()
         {
+            // 左右の旋回入力を取得する
             rotateInput = rotateAction.action.ReadValue<Vector2>().x;
         }
 
@@ -56,21 +60,17 @@ namespace GFF2026.InGame
 
         void Move()
         {
-            // プレイヤーの向いている方向に常に前進
-            Vector3 moveDirection = rigidbody.rotation * Vector3.forward;
+            // プレイヤーが現在向いている方向を取得する
+            Vector3 moveDirection = transform.forward;
 
-            // 現在の位置に、移動する方向と距離を足して移動先を計算する
-            // 移動距離は「移動方向 × 移動速度 × 物理演算の更新間隔」で求める
-            rigidbody.MovePosition(
-                rigidbody.position +
-                moveDirection * playerMoveStatus.MoveSpeed * Time.fixedDeltaTime
-            );
+            // 移動方向と移動速度から移動距離を計算して移動する
+            rigidbody.linearVelocity = moveDirection * status.MoveSpeed;
         }
 
         void Rotate()
         {
             // 入力値に応じて回転する角度を計算する
-            // マイナスを付けることで、画面から見た左右の操作を反転させる
+            // マイナスを付けることで回転方向を反転させる
             float rotation = -rotateInput * rotateSpeed * Time.fixedDeltaTime;
 
             // 現在のプレイヤーの向きに回転角度を加える
