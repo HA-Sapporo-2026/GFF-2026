@@ -33,7 +33,7 @@ namespace GFF2026.InGame
             }
 
             //初めに振る腕を右手に設定
-
+            armType = ArmType.Right;
         }
 
         private void Update()
