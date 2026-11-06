@@ -611,8 +611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ff6cce567047b43bf5022dfd97f2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GFF2026.InGame.PlayerAttack
-  rightArm: {fileID: 959366430}
-  leftArm: {fileID: 1616610396}
+  rightArmCollider: {fileID: 959366431}
+  leftArmCollider: {fileID: 1616610397}
 --- !u!135 &1358771313
 SphereCollider:
   m_ObjectHideFlags: 0
