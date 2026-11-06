@@ -6,7 +6,6 @@ namespace GFF2026.InGame
 {
     public class PlayerStatus : MonoBehaviour, IPlayerStatus
     {
-
         [SerializeField] int initialAttackPower; // 攻撃力の初期値
         [SerializeField] float initialAttackSpeed; // 攻撃速度の初期値
         [SerializeField] float initialMoveSpeed; // 移動速度の初期値
