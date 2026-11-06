@@ -5,10 +5,17 @@ namespace GFF2026.InGame
 {
     public class PlayerAttack : MonoBehaviour
     {
+        //腕の種類をenum
+        enum ArmType
+        {
+            Right,
+            Left
+        }
+
         //攻撃の間隔を計測する変数
         float attackTime;
         //振る腕を決める変数
-        int armNumber;
+        ArmType armType;
 
         //IPlayerStatusを継承
         IPlayerStatus status;
@@ -26,7 +33,7 @@ namespace GFF2026.InGame
             }
 
             //初めに振る腕を右手に設定
-            armNumber = 0;
+
         }
 
         private void Update()
@@ -37,25 +44,25 @@ namespace GFF2026.InGame
             //経過時間がAttackSpeedを超えたら腕を振る処理
             if(attackTime >= status.AttackSpeed)
             {
-                switch (armNumber)
+                switch (armType)
                 {
                     //右腕の処理
-                    case 0:
+                    case ArmType.Right:
                         //左手の当たり判定を無効にする
                         leftArmCollider.enabled = false;
                         //右手の当たり判定を有効にする
                         rightArmCollider.enabled = true;
                         //次回の時間経過時の振る腕を左手にする
-                        armNumber = 1;
+                        armType = ArmType.Left;
                         break;
                     
-                    case 1:
+                    case ArmType.Left:
                         //右手の当たり判定を無効にする
                         rightArmCollider.enabled = false;
                         //左手の当たり判定を有効にする
                         leftArmCollider.enabled = true;
                         //次回の時間経過時の振る腕を右手にする
-                        armNumber = 0;
+                        armType = ArmType.Right;
                         break;
                 }
 
