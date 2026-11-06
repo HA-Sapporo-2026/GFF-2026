@@ -13,11 +13,6 @@ public class PlayerStatus : MonoBehaviour, IPlayerStatus
     [SerializeField] float initialAttackSpeed; // 攻撃速度の初期値
     [SerializeField] float initialMoveSpeed; // 移動速度の初期値
 
-    //初期値
-    // int defaltAttackPower;
-    // int defaltAttackSpeed;
-    // int defaltMoveSpeed;
-
     public void IncreaseAttackPower(int power) // 攻撃力を加算する処理
     {
         AttackPower = Mathf.Min(AttackPower + power, 10000); // 10000は適当な最大攻撃力
