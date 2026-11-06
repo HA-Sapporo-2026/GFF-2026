@@ -2,10 +2,11 @@
 using GFF2026.InGame;
 using UnityEngine;
 
-public class NormalBlockParts : BlockPartsBase
+namespace GFF2026.InGame 
 {
-    protected override void OnHit()
+    public class NormalBlockParts : BlockPartsBase
     {
-        Debug.Log("hit");
+
     }
 }
+

@@ -1,2 +1,2 @@
 name: 武藤
-path: Assets/_Project/InGame/Prefabs/Block/BlockParts.prefab
+path: Assets/_Project/InGame/Prefabs/Block/BlockPartsBase.prefab
