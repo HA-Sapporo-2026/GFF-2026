@@ -1,4 +1,4 @@
-// Last assigned by 武藤
+﻿// Last assigned by 武藤
 using GFF2026.InGame;
 using UnityEngine;
 
@@ -15,6 +15,13 @@ namespace GFF2026.InGame
         public float AttackSpeed { get; private set; }
 
         public float MoveSpeed { get; private set; }
+
+        private void Awake()
+        {
+            AttackPower = initialAttackPower;
+            AttackSpeed = initialAttackSpeed;
+            MoveSpeed = initialMoveSpeed;
+        }
 
         /// <summary>
         /// 攻撃力を加算する処理

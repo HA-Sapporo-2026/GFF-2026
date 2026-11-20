@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GFF2026.InGame
@@ -50,12 +50,13 @@ namespace GFF2026.InGame
         {
             // 左右の旋回入力を取得する
             rotateInput = rotateAction.action.ReadValue<Vector2>().x;
+
+            Rotate();
         }
 
         void FixedUpdate()
         {
             Move();
-            Rotate();
         }
 
         void Move()
@@ -71,14 +72,10 @@ namespace GFF2026.InGame
         {
             // 入力値に応じて回転する角度を計算する
             // マイナスを付けることで回転方向を反転させる
-            float rotation = -rotateInput * rotateSpeed * Time.fixedDeltaTime;
+            float rotation = rotateInput * rotateSpeed * Time.deltaTime;
 
-            // 現在のプレイヤーの向きに回転角度を加える
-            Quaternion nextRotation =
-                rigidbody.rotation * Quaternion.Euler(0f, rotation, 0f);
-
-            // 計算した向きを反映する
-            rigidbody.MoveRotation(nextRotation);
+            //// 現在のプレイヤーの向きに回転角度を加える
+            transform.Rotate(Vector3.up, rotation);
         }
     }
 }
