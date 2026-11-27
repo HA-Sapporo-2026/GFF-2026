@@ -1,4 +1,5 @@
 ﻿// Last assigned by 丹羽
+using System.Buffers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +7,16 @@ namespace GFF2026.InGame
 {
     public class PlayerAttack : MonoBehaviour
     {
+        //攻撃用のコライダーを取得
+        [SerializeField] Collider punchCollider;
+
         //攻撃の間隔を計測する変数
         float attackTime;
 
         //IPlayerStatusを継承
         IPlayerStatus status;
 
-        //攻撃用のコライダーを取得
-        [SerializeField] Collider punchCollider;
-
-        private void Awake()
+        void Awake()
         {
             if (!TryGetComponent(out status))
             {
@@ -23,38 +24,68 @@ namespace GFF2026.InGame
             }
         }
 
-        private void Update()
+        void Update()
         {
             //攻撃時間を計測
             attackTime += Time.deltaTime;
 
             //経過時間がAttackSpeedを超えたら腕を振る処理
-            if(attackTime >= status.AttackSpeed)
+            if (attackTime >= status.AttackSpeed)
             {
                 punchCollider.enabled = true;
 
                 Debug.Log("攻撃しました");
-                
+
                 //経過時間をリセット
                 attackTime = 0;
-            }
-            else
-            {
-                punchCollider.enabled = false;
+                Punch();
             }
         }
 
-        //腕にIDamageableコンポーネントを継承しているオブジェクトが当たった時の処理
-        private void OnTriggerEnter(Collider other)
+        void Punch()
         {
-            //腕に当たったオブジェクトがIDamageableを持っているか検知
-            if (other.TryGetComponent<IDamageable>(out var damageable))
-            {
-                //TakeDamage関数にAttackPowerの数値を送る
-                damageable.TakeDamage(status.AttackPower);
+            // 判定を行う座標、サイズを取得する
+            var position = punchCollider.bounds.center;
+            var extents = punchCollider.bounds.extents;
 
-                //攻撃の判定を無効にする
-                punchCollider.enabled = false;
+            // 当たり判定の結果を入れる配列を借りる
+            var results = ArrayPool<Collider>.Shared.Rent(32);
+
+            try
+            {
+                // コライダーの位置に球体の当たり判定を生成して衝突したオブジェクトの数と情報を取得する
+                var hits = Physics.OverlapBoxNonAlloc(position, extents, results);
+
+                IDamageable nearest = null;
+                var nearestDistance = float.MaxValue;
+
+                if (hits <= 0) { return; }
+
+                // 衝突したオブジェクトの数分ループさせる
+                for (var i = 0; i < hits; i++)
+                {
+                    var hit = results[i];
+                    if (!hit.TryGetComponent<IDamageable>(out var damageable)) { continue; }
+
+                    // 衝突したブロックパーツの位置とコライダーの位置との距離を算出する
+                    var distance = Vector3.Distance(transform.position, hit.transform.position);
+
+                    // 一番近いブロックパーツの距離よりも近いブロックパーツが見つかったら
+                    // それをターゲットとする
+                    if (distance < nearestDistance)
+                    {
+                        nearest = damageable;
+                        nearestDistance = distance;
+                    }
+                }
+
+                // 一番近いブロックパーツにダメージを与える
+                nearest?.TakeDamage(status.AttackPower);
+            }
+            finally
+            {
+                // 借りたコライダーの配列を返す
+                ArrayPool<Collider>.Shared.Return(results);
             }
         }
     }
