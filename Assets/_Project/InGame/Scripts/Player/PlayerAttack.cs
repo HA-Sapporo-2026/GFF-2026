@@ -6,13 +6,6 @@ namespace GFF2026.InGame
 {
     public class PlayerAttack : MonoBehaviour
     {
-        //腕の種類をenum
-        enum ArmType
-        {
-            Right,
-            Left
-        }
-
         //攻撃の間隔を計測する変数
         float attackTime;
 
