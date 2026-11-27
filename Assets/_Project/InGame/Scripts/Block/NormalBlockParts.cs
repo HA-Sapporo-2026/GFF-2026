@@ -8,9 +8,15 @@ namespace GFF2026.InGame
     public class NormalBlockParts : BlockPartsBase
     {
         [SerializeField] CinemachineImpulseSource source;
-        protected override void OnDamaged(int damage)
+        protected override void OnBroken()
         {
             source.GenerateImpulse();
+            gameObject.SetActive(false);
+        }
+
+        protected override void OnDamaged(int damage)
+        {
+            Debug.Log("Hit");
         }
     }
 }

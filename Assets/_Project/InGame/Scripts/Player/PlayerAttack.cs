@@ -15,16 +15,12 @@ namespace GFF2026.InGame
 
         //攻撃の間隔を計測する変数
         float attackTime;
-        //振る腕を決める変数
-        ArmType armType;
 
         //IPlayerStatusを継承
         IPlayerStatus status;
 
-        //右腕のコライダーを取得
-        [SerializeField] Collider rightArmCollider;
-        //左腕コライダーを取得
-        [SerializeField] Collider leftArmCollider;
+        //攻撃用のコライダーを取得
+        [SerializeField] Collider punchCollider;
 
         private void Awake()
         {
@@ -32,9 +28,6 @@ namespace GFF2026.InGame
             {
                 Debug.LogError($"{name} に IPlayerStatus を実装したコンポーネントがありません", this);
             }
-
-            //初めに振る腕を右手に設定
-            armType = ArmType.Right;
         }
 
         private void Update()
@@ -45,30 +38,16 @@ namespace GFF2026.InGame
             //経過時間がAttackSpeedを超えたら腕を振る処理
             if(attackTime >= status.AttackSpeed)
             {
-                switch (armType)
-                {
-                    //右腕の処理
-                    case ArmType.Right:
-                        //左手の当たり判定を無効にする
-                        leftArmCollider.enabled = false;
-                        //右手の当たり判定を有効にする
-                        rightArmCollider.enabled = true;
-                        //次回の時間経過時の振る腕を左手にする
-                        armType = ArmType.Left;
-                        break;
-                    
-                    case ArmType.Left:
-                        //右手の当たり判定を無効にする
-                        rightArmCollider.enabled = false;
-                        //左手の当たり判定を有効にする
-                        leftArmCollider.enabled = true;
-                        //次回の時間経過時の振る腕を右手にする
-                        armType = ArmType.Right;
-                        break;
-                }
+                punchCollider.enabled = true;
 
+                Debug.Log("攻撃しました");
+                
                 //経過時間をリセット
                 attackTime = 0;
+            }
+            else
+            {
+                punchCollider.enabled = false;
             }
         }
 
@@ -81,9 +60,8 @@ namespace GFF2026.InGame
                 //TakeDamage関数にAttackPowerの数値を送る
                 damageable.TakeDamage(status.AttackPower);
 
-                //腕の判定を無効にする
-                rightArmCollider.enabled = false;
-                leftArmCollider.enabled = false;
+                //攻撃の判定を無効にする
+                punchCollider.enabled = false;
             }
         }
     }
